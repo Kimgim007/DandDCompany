@@ -1,0 +1,59 @@
+﻿@model ClassViewModel
+
+<head>
+
+    <style>
+
+
+
+
+    </style>
+</head>
+
+<body>
+    @if (@Model.ClassId == null)
+    {
+
+        <h1 style="text-align:center;font-weight: 400;">Add Class</h1>
+        <hr />
+
+    }
+    else
+    {
+        <h1 style="text-align:center; font-weight: 400;"> Update Class</h1>
+        <hr />
+    }
+    <div style="width:100%;">
+
+        <form action="/Class/AddClass" method="post">
+            <div style="text-align:center">
+                <p>
+                    <div>
+                        <h5 style="font-weight: 400;">
+                            Enter ClassName:
+                        </h5>
+
+                    </div>
+
+                    @Html.TextBoxFor(x => x.ClassName)
+                    @Html.ValidationMessageFor(x=>x.ClassName)
+                </p>
+
+                
+            </div>
+            @Html.HiddenFor(x=>x.ClassId)
+            @if (@Model.ClassId == null)
+            {
+                <div style="text-align:center">
+                    <input type="submit" value="Add Class" />
+                </div>
+            }
+            else
+            {
+                <div style="text-align:center">
+                    <input type="submit" value="Class" />
+                </div>
+            }
+        </form>
+    </div>
+</body>

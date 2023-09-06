@@ -1,0 +1,59 @@
+﻿@model GroupViewModel
+
+<head>
+
+    <style>
+
+
+
+
+    </style>
+</head>
+
+<body>
+    @if (@Model.GrupId == null)
+    {
+
+        <h1 style="text-align:center;font-weight: 400;">Add Group</h1>
+        <hr />
+
+    }
+    else
+    {
+        <h1 style="text-align:center; font-weight: 400;"> Update Group</h1>
+        <hr />
+    }
+    <div style="width:100%;">
+
+        <form action="/Group/AddGroup" method="post">
+            <div style="text-align:center">
+                <p>
+                    <div>
+                        <h5 style="font-weight: 400;">
+                            Enter GroupName:
+                        </h5>
+
+                    </div>
+
+                    @Html.TextBoxFor(x => x.GroupName)
+                    @Html.ValidationMessageFor(x=>x.GroupName)
+                </p>
+
+
+            </div>
+            @Html.HiddenFor(x=>x.GrupId)
+            @if (@Model.GrupId == null)
+            {
+                <div style="text-align:center">
+                    <input type="submit" value="Add Group" />
+                </div>
+            }
+            else
+            {
+                <div style="text-align:center">
+                    <input type="submit" value="Group" />
+                </div>
+            }
+        </form>
+    </div>
+</body>

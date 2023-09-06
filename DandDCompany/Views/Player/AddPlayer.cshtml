@@ -1,0 +1,59 @@
+﻿@model PlayerViewModel
+
+<head>
+
+    <style>
+
+
+
+
+    </style>
+</head>
+
+<body>
+    @if (@Model.PlayerId == null)
+    {
+
+        <h1 style="text-align:center;font-weight: 400;">Add Player</h1>
+        <hr />
+
+    }
+    else
+    {
+        <h1 style="text-align:center; font-weight: 400;"> Update Player</h1>
+        <hr />
+    }
+    <div style="width:100%;">
+
+        <form action="/Player/AddPlayer" method="post">
+            <div style="text-align:center">
+                <p>
+                    <div>
+                        <h5 style="font-weight: 400;">
+                            Enter PlayerName:
+                        </h5>
+
+                    </div>
+
+                    @Html.TextBoxFor(x => x.PlayerName)
+                    @Html.ValidationMessageFor(x=>x.PlayerName)
+                </p>
+
+
+            </div>
+            @Html.HiddenFor(x=>x.PlayerId)
+            @if (@Model.PlayerId == null)
+            {
+                <div style="text-align:center">
+                    <input type="submit" value="Add Player" />
+                </div>
+            }
+            else
+            {
+                <div style="text-align:center">
+                    <input type="submit" value="Player" />
+                </div>
+            }
+        </form>
+    </div>
+</body>
