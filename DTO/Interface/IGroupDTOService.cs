@@ -10,9 +10,9 @@ namespace DTO.Interface
     public interface IGroupDTOService
     {
         Task Add(GroupDTO groupDTO);
-        Task<GroupDTO> Get(int id);
+        Task<GroupDTO> Get(Guid id);
         Task<List<GroupDTO>> GetAll();
         Task Update(GroupDTO groupDTO);
-        Task Remove(int id);
+        Task Remove(Guid id);
     }
 }

@@ -22,19 +22,53 @@ namespace DataBase.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("DataBase.DbEntity.Class", b =>
+            modelBuilder.Entity("DataBase.DbEntity.GameAccount", b =>
                 {
-                    b.Property<Guid>("ClassId")
+                    b.Property<Guid>("GameAccountId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("ClassName")
+                    b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ClassId");
+                    b.HasKey("GameAccountId");
 
-                    b.ToTable("Classs");
+                    b.ToTable("GameAccounts");
+                });
+
+            modelBuilder.Entity("DataBase.DbEntity.GameCharacter", b =>
+                {
+                    b.Property<Guid>("GameCharacterId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("DiscriptionGameChar")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("GameCharacterName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("GameCharacterId");
+
+                    b.ToTable("GameCharacters");
+                });
+
+            modelBuilder.Entity("DataBase.DbEntity.GameClass", b =>
+                {
+                    b.Property<Guid>("GameClassId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("DescriptionGameClass")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("GameClassName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("GameClassId");
+
+                    b.ToTable("GameClasss");
                 });
 
             modelBuilder.Entity("DataBase.DbEntity.Group", b =>
@@ -44,44 +78,11 @@ namespace DataBase.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("GroupName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("GroupId");
 
                     b.ToTable("Groups");
-                });
-
-            modelBuilder.Entity("DataBase.DbEntity.PersonalPage", b =>
-                {
-                    b.Property<Guid>("PersonalPageId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("PageDescription")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("PersonalPageId");
-
-                    b.ToTable("PersonalPages");
-                });
-
-            modelBuilder.Entity("DataBase.DbEntity.Player", b =>
-                {
-                    b.Property<Guid>("PlayerId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("PlayerName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("PlayerId");
-
-                    b.ToTable("Players");
                 });
 #pragma warning restore 612, 618
         }

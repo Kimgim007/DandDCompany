@@ -20,9 +20,10 @@ namespace DTO.RegisterDI
         {
             DataBase.RegisterDI.RegisterDI.Register(service);
 
-            service.AddScoped<ClassRepository>();
+            service.AddScoped<GameClassRepository>();
             service.AddScoped<GroupRepository>();
-            service.AddScoped<PlayerRepository>();
+            service.AddScoped<GameCharacterRepository>();
+            service.AddScoped<GameAccountRepository>();
 
 
         }

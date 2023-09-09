@@ -6,28 +6,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DTO.Service.Mapnig;
+
 namespace DTO.Service
 {
-    public class GroupDTOService : IGroupDTOService
+    public class GameCharacterDTOService : IGameCharacterDTOService
     {
-        private GroupRepository _groupRepository;
-        public GroupDTOService(GroupRepository groupRepository)
+        private GameCharacterRepository _gameCharacter;
+        public GameCharacterDTOService(GameCharacterRepository gameCharacterRepository) 
         {
-            this._groupRepository = groupRepository;    
+        this._gameCharacter = gameCharacterRepository;
+        }
+        public async Task Add(GameCharacterDTO gameCharacterDTO)
+        {
+            await _gameCharacter.Add(DTO.Service.Mapnig.Maping.map(gameCharacterDTO));
         }
 
-        public async Task Add(GroupDTO groupDTO)
-        {
-            await _groupRepository.Add(DTO.Service.Mapnig.Maping.map(groupDTO));
-        }
-
-        public Task<GroupDTO> Get(Guid id)
+        public Task<GameClassDTO> Get(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<List<GroupDTO>> GetAll()
+        public Task<List<GameClassDTO>> GetAll()
         {
             throw new NotImplementedException();
         }
@@ -37,7 +36,7 @@ namespace DTO.Service
             throw new NotImplementedException();
         }
 
-        public Task Update(GroupDTO groupDTO)
+        public Task Update(GameCharacterDTO playerDTO)
         {
             throw new NotImplementedException();
         }

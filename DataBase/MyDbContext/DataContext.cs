@@ -13,10 +13,10 @@ namespace DataBase.MyDbContext
     {
         public DataContext() { }
 
-        public DbSet<Player> Players { get; set; }
+        public DbSet<GameCharacter> GameCharacters { get; set; }
         public DbSet<Group> Groups { get; set; }
-        public DbSet<Class> Classs { get; set; }  
-        public DbSet<PersonalPage> PersonalPages { get; set; }
+        public DbSet<GameClass> GameClasss { get; set; }  
+        public DbSet<GameAccount> GameAccounts { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -33,29 +33,27 @@ namespace DataBase.MyDbContext
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Player>(entityTypeBuilder =>
+            modelBuilder.Entity<GameCharacter>(entityTypeBuilder =>
             {
-                entityTypeBuilder.HasKey(x => x.PlayerId);
-
+                entityTypeBuilder.HasKey(x => x.GameCharacterId);
             });
 
             modelBuilder.Entity<Group>(entityTypeBuilder =>
             {
                 entityTypeBuilder.HasKey(x => x.GroupId);
+            });
+
+            modelBuilder.Entity<GameClass>(entityTypeBuilder =>
+            {
+                entityTypeBuilder.HasKey(x => x.GameClassId);
+
 
             });
 
-            modelBuilder.Entity<Class>(entityTypeBuilder =>
+            modelBuilder.Entity<GameAccount>(entityTypeBuilder =>
             {
-                entityTypeBuilder.HasKey(x => x.ClassId);
-
-            });
-
-            modelBuilder.Entity<PersonalPage>(entityTypeBuilder =>
-            {
-                entityTypeBuilder.HasKey(x => x.PersonalPageId);
+                entityTypeBuilder.HasKey(x => x.GameAccountId);
               
-
             });
 
         }

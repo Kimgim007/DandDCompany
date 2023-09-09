@@ -25,9 +25,9 @@ namespace DandDCompany
             builder.Services.AddControllersWithViews();
 
             DTO.RegisterDI.RegisterDI.Register(builder.Services);
-            builder.Services.AddScoped<IClassDTOService, ClassDTOService>();
+            builder.Services.AddScoped<IGameClassDTOService, GameClassDTOService>();
             builder.Services.AddScoped<IGroupDTOService, GroupDTOService>();
-            builder.Services.AddScoped<IPlayerDTOService, PlayerDTOService>();
+            builder.Services.AddScoped<IGameCharacterDTOService, GameCharacterDTOService>();
 
             var app = builder.Build();
 

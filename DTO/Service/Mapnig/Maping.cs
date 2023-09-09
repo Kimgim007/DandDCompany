@@ -11,38 +11,44 @@ namespace DTO.Service.Mapnig
     public static class Maping
     {
 
-        public static Player map(PlayerDTO playerDTO)
+        public static GameCharacter map(GameCharacterDTO gameCharacterDTO)
         {
-            return new Player()
+            return new GameCharacter()
             {
-                PlayerId = playerDTO.PlayerId,
-                PlayerName = playerDTO.PlayerName,
+                GameCharacterId = gameCharacterDTO.GameCharacterId,
+                GameCharacterName = gameCharacterDTO.GameCharacterName,
             };
         }
-        public static PlayerDTO map(Player player)
+        public static GameCharacterDTO map(GameCharacter gameCharacter)
         {
-            return new PlayerDTO()
+            return new GameCharacterDTO()
             {
-                PlayerId = player.PlayerId,
-                PlayerName = player.PlayerName,
+                GameCharacterId = gameCharacter.GameCharacterId,
+                GameCharacterName = gameCharacter.GameCharacterName,
             };
         }
 
-        public static Class map(ClassDTO classDTO)
+        public static GameClass map(GameClassDTO gameClassDTO)
         {
-            return new Class()
+            return new GameClass()
             {
-                ClassId = classDTO.ClassId,
-                ClassName = classDTO.ClassName,
+                GameClassId = gameClassDTO.GameClassId,
+                GameClassName = gameClassDTO.GameClassName,
+                DescriptionGameClass= gameClassDTO.DescriptionGameClass,
 
             };
         }
-        public static ClassDTO map(Class _class)
+        public static GameClassDTO map(GameClass gameClass)
         {
-            return new ClassDTO()
+          
+
+            return new GameClassDTO()
             {
-                ClassId = _class.ClassId,
-                ClassName = _class.ClassName,
+                GameClassId = gameClass.GameClassId,
+                GameClassName = gameClass.GameClassName,
+                DescriptionGameClass= gameClass.DescriptionGameClass,
+
+
             };
         }
 

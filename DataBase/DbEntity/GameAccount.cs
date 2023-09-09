@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace DataBase.DbEntity
 {
-    public class Class
+    public class GameAccount
     {
-        public Guid ClassId { get; set; }
-        public string? ClassName { get; set; }
+        public Guid GameAccountId { get; set; }
+
+        public string Email { get; set; }
     }
 }

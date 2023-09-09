@@ -9,35 +9,35 @@ using System.Threading.Tasks;
 
 namespace DataBase.Repository
 {
-    public class PlayerRepository : IRepository<Player>
+    public class GameCharacterRepository : IRepository<GameCharacter>
     {
         private DataContext _dataContext;
-        public PlayerRepository(DataContext dataContext)
+        public GameCharacterRepository(DataContext dataContext)
         {
             this._dataContext = dataContext;
         }
-        public async Task Add(Player player)
+        public async Task Add(GameCharacter gameCharacter)
         {
-          _dataContext.Players.Add(player);
+          _dataContext.GameCharacters.Add(gameCharacter);
             await _dataContext.SaveChangesAsync();
         }
 
-        public Task<Player> Get(int id)
+        public Task<GameCharacter> Get(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<List<Player>> GetAll()
+        public Task<List<GameCharacter>> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public Task Remove(int id)
+        public Task Remove(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public Task Update(Player obj)
+        public Task Update(GameCharacter obj)
         {
             throw new NotImplementedException();
         }

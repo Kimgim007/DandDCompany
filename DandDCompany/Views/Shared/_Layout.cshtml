@@ -26,17 +26,31 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Player" asp-action="Index">Player</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="GameCharacter" asp-action="Index">GameCharacter</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Class" asp-action="AddClass">AddClass</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Group" asp-action="GroupsView">GroupsView</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Group" asp-action="AddGroup">AddGroup</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="GameClass" asp-action="GetGameClasss">GetGameClass</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Player" asp-action="AddPlayer">AddPlayer</a>
-                        </li>
+                        @if (User.IsInRole("Admin"))
+                        {
+
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Group" asp-action="AddGroup">AddGroup</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="GameClass" asp-action="AddGameClass">AddGameClass</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="GameCharacter" asp-action="AddGameCharacter">AddGameCharacter</a>
+                            </li>
+
+                        }
+
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>

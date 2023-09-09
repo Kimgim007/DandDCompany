@@ -1,4 +1,4 @@
-﻿@model PlayerViewModel
+﻿@model GameCharacterViewModel
 
 <head>
 
@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    @if (@Model.PlayerId == null)
+    @if (@Model.GameCharacterId == null)
     {
 
         <h1 style="text-align:center;font-weight: 400;">Add Player</h1>
@@ -35,14 +35,14 @@
 
                     </div>
 
-                    @Html.TextBoxFor(x => x.PlayerName)
-                    @Html.ValidationMessageFor(x=>x.PlayerName)
+                    @Html.TextBoxFor(x => x.GameCharacterName)
+                    @Html.ValidationMessageFor(x=>x.GameCharacterName)
                 </p>
 
 
             </div>
-            @Html.HiddenFor(x=>x.PlayerId)
-            @if (@Model.PlayerId == null)
+            @Html.HiddenFor(x=>x.GameCharacterId)
+            @if (@Model.GameCharacterId == null)
             {
                 <div style="text-align:center">
                     <input type="submit" value="Add Player" />

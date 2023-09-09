@@ -7,5 +7,9 @@ namespace DandDCompany.Models
         public Guid GrupId { get; set; }
         public string GroupName { get; set; }
 
+        public string DiscriptionGroup { get; set; }
+
+        
+
     }
 }

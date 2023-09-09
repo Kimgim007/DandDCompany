@@ -1,4 +1,4 @@
-﻿@model ClassViewModel
+﻿@model GameClassViewModel
 
 <head>
 
@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    @if (@Model.ClassId == null)
+    @if (@Model.GameClassId == null)
     {
 
         <h1 style="text-align:center;font-weight: 400;">Add Class</h1>
@@ -25,7 +25,7 @@
     }
     <div style="width:100%;">
 
-        <form action="/Class/AddClass" method="post">
+        <form action="/GameClass/AddGameClass" method="post">
             <div style="text-align:center">
                 <p>
                     <div>
@@ -35,14 +35,25 @@
 
                     </div>
 
-                    @Html.TextBoxFor(x => x.ClassName)
-                    @Html.ValidationMessageFor(x=>x.ClassName)
+                    @Html.TextBoxFor(x => x.GameClassName)
+                    @Html.ValidationMessageFor(x=>x.GameClassName)
+                </p>
+                   <p>
+                    <div>
+                        <h5 style="font-weight: 400;">
+                            Enter Description Game Class:
+                        </h5>
+
+                    </div>
+
+                    @Html.TextBoxFor(x => x.DescriptionGameClass)
+                    @Html.ValidationMessageFor(x=>x.DescriptionGameClass)
                 </p>
 
                 
             </div>
-            @Html.HiddenFor(x=>x.ClassId)
-            @if (@Model.ClassId == null)
+            @Html.HiddenFor(x=>x.GameClassId)
+            @if (@Model.GameClassId == null)
             {
                 <div style="text-align:center">
                     <input type="submit" value="Add Class" />
@@ -51,7 +62,7 @@
             else
             {
                 <div style="text-align:center">
-                    <input type="submit" value="Class" />
+                    <input type="submit" value="Add Game Class" />
                 </div>
             }
         </form>

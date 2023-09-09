@@ -1,6 +1,7 @@
 ﻿using DataBase.DbEntity;
 using DataBase.MyDbContext;
 using DataBase.Repository.IRepository;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,37 +10,41 @@ using System.Threading.Tasks;
 
 namespace DataBase.Repository
 {
-    public class ClassRepository : IRepository<Class>
+    public class GameClassRepository : IRepository<GameClass>
     {
         private DataContext _dataContext;
 
-        public ClassRepository(DataContext dataContext)
+        public GameClassRepository(DataContext dataContext)
         {
            this._dataContext = dataContext;
         }
 
-        public async Task Add(Class _class)
+        public async Task Add(GameClass _class)
         {
             _dataContext.Add(_class);
             await _dataContext.SaveChangesAsync();
         }
 
-        public Task<Class> Get(int id)
+        public async Task<GameClass> Get(Guid id)
+        {
+            var gameClass = await _dataContext.GameClasss.FirstOrDefaultAsync(q => q.GameClassId == id);
+            return gameClass;
+        }
+
+        public async Task<List<GameClass>> GetAll()
+        {
+            var gameClasss = await _dataContext.GameClasss.ToListAsync();
+            return gameClasss;
+
+
+        }
+
+        public Task Remove(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<List<Class>> GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task Remove(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task Update(Class obj)
+        public Task Update(GameClass obj)
         {
             throw new NotImplementedException();
         }

@@ -8,29 +8,29 @@ using System.Threading.Tasks;
 
 namespace DataBase.Repository
 {
-    public class PersonalPageRepository : IRepository<PersonalPage>
+    public class GameAccountRepository : IRepository<GameAccount>
     {
-        public Task Add(PersonalPage personalPage)
+        public Task Add(GameAccount gameAccount)
         {
             throw new NotImplementedException();
         }
 
-        public Task<PersonalPage> Get(int id)
+        public Task<GameAccount> Get(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<List<PersonalPage>> GetAll()
+        public Task<List<GameAccount>> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public Task Remove(int id)
+        public Task Remove(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public Task Update(PersonalPage obj)
+        public Task Update(GameAccount obj)
         {
             throw new NotImplementedException();
         }

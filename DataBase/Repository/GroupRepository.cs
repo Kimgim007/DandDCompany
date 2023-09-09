@@ -25,7 +25,7 @@ namespace DataBase.Repository
 
         }
 
-        public Task<Group> Get(int id)
+        public Task<Group> Get(Guid id)
         {
             throw new NotImplementedException();
         }
@@ -35,7 +35,7 @@ namespace DataBase.Repository
             throw new NotImplementedException();
         }
 
-        public Task Remove(int id)
+        public Task Remove(Guid id)
         {
             throw new NotImplementedException();
         }

@@ -9,9 +9,9 @@ namespace DataBase.Repository.IRepository
     public interface IRepository<T>
     {
         Task Add(T obj);
-        Task<T> Get(int id);
+        Task<T> Get(Guid id);
         Task<List<T>> GetAll();
         Task Update(T obj);
-        Task Remove(int id);
+        Task Remove(Guid id);
     }
 }
