@@ -30,9 +30,12 @@ namespace DataBase.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("GameAccountId");
+
+                    b.HasIndex("Email")
+                        .IsUnique();
 
                     b.ToTable("GameAccounts");
                 });

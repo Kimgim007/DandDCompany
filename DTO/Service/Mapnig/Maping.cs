@@ -34,24 +34,21 @@ namespace DTO.Service.Mapnig
             {
                 GameClassId = gameClassDTO.GameClassId,
                 GameClassName = gameClassDTO.GameClassName,
-                DescriptionGameClass= gameClassDTO.DescriptionGameClass,
+                DescriptionGameClass = gameClassDTO.DescriptionGameClass,
 
             };
         }
         public static GameClassDTO map(GameClass gameClass)
         {
-          
-
             return new GameClassDTO()
             {
                 GameClassId = gameClass.GameClassId,
                 GameClassName = gameClass.GameClassName,
-                DescriptionGameClass= gameClass.DescriptionGameClass,
+                DescriptionGameClass = gameClass.DescriptionGameClass,
 
 
             };
         }
-
         public static Group map(GroupDTO groupDTO)
         {
             return new Group()
@@ -66,6 +63,24 @@ namespace DTO.Service.Mapnig
             {
                 GroupId = group.GroupId,
                 GroupName = group.GroupName
+            };
+        }
+
+        public static GameAccount map(GameAccountDTO gameAccountDTO)
+        {
+            return new GameAccount()
+            {
+                GameAccountId = gameAccountDTO.GameAccountDTOId,
+                Email = gameAccountDTO.Email,
+            };
+        }
+
+        public static GameAccountDTO map(GameAccount gameAccount)
+        {
+            return new GameAccountDTO()
+            {
+                GameAccountDTOId = gameAccount.GameAccountId,
+                Email = gameAccount.Email
             };
         }
 

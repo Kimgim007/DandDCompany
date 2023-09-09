@@ -15,9 +15,6 @@ namespace DTO.Entity
         }
 
         public Guid GameAccountDTOId { get; set; }
-
-        public string? GameAccountDescription { get; set; }
-
         public string Email { get; set; }
     }
 }

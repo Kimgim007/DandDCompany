@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataBase.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230909152242_Mig_1")]
+    [Migration("20230909154848_Mig_1")]
     partial class Mig_1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -32,9 +32,12 @@ namespace DataBase.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("GameAccountId");
+
+                    b.HasIndex("Email")
+                        .IsUnique();
 
                     b.ToTable("GameAccounts");
                 });

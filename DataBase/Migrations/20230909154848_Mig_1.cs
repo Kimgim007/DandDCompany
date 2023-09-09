@@ -14,7 +14,7 @@ namespace DataBase.Migrations
                 columns: table => new
                 {
                     GameAccountId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Email = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -58,6 +58,12 @@ namespace DataBase.Migrations
                 {
                     table.PrimaryKey("PK_Groups", x => x.GroupId);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GameAccounts_Email",
+                table: "GameAccounts",
+                column: "Email",
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

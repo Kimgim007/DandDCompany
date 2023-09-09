@@ -53,6 +53,7 @@ namespace DataBase.MyDbContext
             modelBuilder.Entity<GameAccount>(entityTypeBuilder =>
             {
                 entityTypeBuilder.HasKey(x => x.GameAccountId);
+                entityTypeBuilder.HasIndex(x => x.Email).IsUnique();
               
             });
 

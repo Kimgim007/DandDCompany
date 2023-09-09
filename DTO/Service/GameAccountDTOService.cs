@@ -14,12 +14,12 @@ namespace DTO.Service
         private GameAccountRepository _gameAccountRepository;
         public GameAccountDTOService(GameAccountRepository gameAccountRepository)
         {
-            this._gameAccountRepository= gameAccountRepository        
+            this._gameAccountRepository = gameAccountRepository;   
         }
 
-        public Task Add(GameAccountDTO gameAccountDTO)
+        public async Task Add(GameAccountDTO gameAccountDTO)
         {
-            throw new NotImplementedException();
+           await _gameAccountRepository.Add(Mapnig.Maping.map(gameAccountDTO));
         }
 
         public Task<GameAccountDTO> Get(Guid id)
