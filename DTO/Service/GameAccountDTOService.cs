@@ -22,6 +22,13 @@ namespace DTO.Service
            await _gameAccountRepository.Add(Mapnig.Maping.map(gameAccountDTO));
         }
 
+        public async Task<GameAccountDTO> GetGameAccountForEmail(string Email)
+        {
+            var gameAccount = await _gameAccountRepository.GetGameAccountForEmail(Email);
+            var gameAccountSort = Mapnig.Maping.map(gameAccount);
+            return gameAccountSort;
+        }
+
         public Task<GameAccountDTO> Get(Guid id)
         {
             throw new NotImplementedException();

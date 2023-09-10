@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    @if (@Model.GrupId == null)
+    @if (@Model.GrupId == Guid.Empty)
     {
 
         <h1 style="text-align:center;font-weight: 400;">Add Group</h1>
@@ -39,10 +39,9 @@
                     @Html.ValidationMessageFor(x=>x.GroupName)
                 </p>
 
-
             </div>
             @Html.HiddenFor(x=>x.GrupId)
-            @if (@Model.GrupId == null)
+            @if (@Model.GrupId == Guid.Empty)
             {
                 <div style="text-align:center">
                     <input type="submit" value="Add Group" />

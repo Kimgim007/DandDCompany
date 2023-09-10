@@ -50,7 +50,6 @@ namespace DandDCompany.Controllers
             return View(groupViewMidel);
         }
 
-
         public async Task<IActionResult> GroupsView()
         {
             List<GroupViewModel> group = new List<GroupViewModel>();

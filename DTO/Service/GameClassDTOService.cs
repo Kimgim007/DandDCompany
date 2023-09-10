@@ -17,9 +17,9 @@ namespace DTO.Service
             this._classRepository = classRepository;
         }
 
-        public async Task Add(GameClassDTO classDTO)
+        public async Task Add(GameClassDTO gameClassDTO)
         {
-            await _classRepository.Add(DTO.Service.Mapnig.Maping.map(classDTO));
+            await _classRepository.Add(DTO.Service.Mapnig.Maping.map(gameClassDTO));
         }
 
         public async Task<GameClassDTO> Get(Guid id)
@@ -41,9 +41,9 @@ namespace DTO.Service
             throw new NotImplementedException();
         }
 
-        public Task Update(GameClassDTO classDTO)
+        public async Task Update(GameClassDTO gameClassDTO)
         {
-            throw new NotImplementedException();
+            await _classRepository.Update(Maping.map(gameClassDTO));
         }
     }
 }

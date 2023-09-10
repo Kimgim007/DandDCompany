@@ -10,6 +10,7 @@ namespace DTO.Interface
     public interface IGameAccountDTOService
     {
         Task Add(GameAccountDTO gameAccountDTO);
+        Task<GameAccountDTO> GetGameAccountForEmail(string gameAccountDTO);
         Task<GameAccountDTO> Get(Guid id);
         Task<List<GameAccountDTO>> GetAll();
         Task Update(GameAccountDTO gameAccountDTO);

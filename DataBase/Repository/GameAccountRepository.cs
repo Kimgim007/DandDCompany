@@ -1,6 +1,7 @@
 ﻿using DataBase.DbEntity;
 using DataBase.MyDbContext;
 using DataBase.Repository.IRepository;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,12 @@ namespace DataBase.Repository
         {
             _dataContext.GameAccounts.Add(gameAccount);
             await _dataContext.SaveChangesAsync();
+        }
+
+        public async Task<GameAccount> GetGameAccountForEmail(string Email)
+        {
+            var GameAccount = await _dataContext.GameAccounts.FirstOrDefaultAsync(q => q.Email == Email);
+            return GameAccount;
         }
 
         public Task<GameAccount> Get(Guid id)

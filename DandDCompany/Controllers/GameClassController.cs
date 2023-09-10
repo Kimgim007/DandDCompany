@@ -26,18 +26,44 @@ namespace DandDCompany.Controllers
         public async Task<IActionResult> AddGameClass(Guid id)
         {
             GameClassViewModel classViewModel;
-            classViewModel = new GameClassViewModel()
-            {
 
-            };
+            if(id == Guid.Empty)
+            {
+                classViewModel = new GameClassViewModel()
+                {
+                    
+                };
+            }
+            else
+            {
+                var gameClass = await _GameClassDTOService.Get(id);
+                classViewModel = new GameClassViewModel()
+                {
+                    GameClassId = gameClass.GameClassId,
+                    GameClassName = gameClass.GameClassName,
+                    DescriptionGameClass= gameClass.DescriptionGameClass,
+
+                };
+            }
+          
             return View(classViewModel);
         }
         [HttpPost]
         public async Task<IActionResult> AddGameClass(GameClassViewModel classViewModel)
         {
-            GameClassDTO classDTO = new GameClassDTO(classViewModel.GameClassId, classViewModel.GameClassName,classViewModel.DescriptionGameClass);
-            await _GameClassDTOService.Add(classDTO);
-            return RedirectToAction("AddGameClass", "GameClassController");
+            GameClassDTO classDTO = new GameClassDTO(classViewModel.GameClassId, classViewModel.GameClassName, classViewModel.DescriptionGameClass);
+            if (classViewModel.GameClassId == Guid.Empty)
+            {
+                await _GameClassDTOService.Add(classDTO);
+            }
+            else
+            {
+                classDTO.GameClassId = classViewModel.GameClassId;
+                await _GameClassDTOService.Update(classDTO);
+            }
+           
+          
+            return RedirectToAction("GetGameClasss", "GameClass");
         }
 
         public async Task<IActionResult> GetGameClasss()

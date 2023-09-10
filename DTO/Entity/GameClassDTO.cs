@@ -19,7 +19,6 @@ namespace DTO.Entity
 
         public Guid GameClassId { get; set; }
         public string? GameClassName { get; set; }
-
         public string? DescriptionGameClass { get; set; }
 
 

@@ -33,6 +33,7 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="GameClass" asp-action="GetGameClasss">GetGameClass</a>
+                       
                         </li>
                         @if (User.IsInRole("Admin"))
                         {
@@ -50,6 +51,12 @@
                             </li>
 
                         }
+                       
+                        @if(User.Identity.IsAuthenticated)
+                        {
+                            @Html.ActionLink("Game Account","GetGameAccount","GameAccount",new{@email = User.Identity.Name},new{style ="text-decoration:none;font-weight: 400; color: black;"})
+                        }
+                     
 
                     </ul>
                     <partial name="_LoginPartial" />

@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    @if (@Model.GameCharacterId == null)
+    @if (@Model.GameCharacterId == Guid.Empty)
     {
 
         <h1 style="text-align:center;font-weight: 400;">Add Player</h1>
@@ -42,7 +42,7 @@
 
             </div>
             @Html.HiddenFor(x=>x.GameCharacterId)
-            @if (@Model.GameCharacterId == null)
+            @if (@Model.GameCharacterId == Guid.Empty)
             {
                 <div style="text-align:center">
                     <input type="submit" value="Add Player" />
