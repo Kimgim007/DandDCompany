@@ -29,7 +29,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="GameCharacter" asp-action="Index">GameCharacter</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="GameRoom" asp-action="GameRoomsView">GameRooms</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="GameRoom" asp-action="GetAllGameRoom">GetAllGameRooms</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="GameClass" asp-action="GetGameClasss">GetGameClass</a>
@@ -52,7 +52,10 @@
                        
                         @if(User.Identity.IsAuthenticated)
                         {
-                            @Html.ActionLink("Game Account","GetGameAccount","GameAccount",new{@email = User.Identity.Name},new{style ="text-decoration:none;font-weight: 400; color: black;"})
+
+                            @Html.ActionLink("Game Account     ","GetGameAccount","GameAccount",new{@email = User.Identity.Name},new{style ="text-decoration:none;font-weight: 400; color: black;"})
+                          
+                            @Html.ActionLink("Add Game Room","AddGameRoom","GameRoom",new{@AdminRoomEmail = User.Identity.Name},new{style ="text-decoration:none;font-weight: 400; color: black;"})
                         }
                      
 

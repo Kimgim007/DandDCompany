@@ -18,6 +18,7 @@ namespace DataBase.MyDbContext
         public DbSet<GameRoom> GameRooms { get; set; }
         public DbSet<GameClass> GameClasss { get; set; }  
         public DbSet<GameAccount> GameAccounts { get; set; }
+        public DbSet<GameAccountGameRoom> GameAccountGameRooms { get; set; }
       
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

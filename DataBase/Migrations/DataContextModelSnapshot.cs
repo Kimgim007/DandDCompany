@@ -40,6 +40,27 @@ namespace DataBase.Migrations
                     b.ToTable("GameAccounts");
                 });
 
+            modelBuilder.Entity("DataBase.DbEntity.GameAccountGameRoom", b =>
+                {
+                    b.Property<Guid>("GameAccountGameRoomId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("GameAccountId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("GameRoomId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("GameAccountGameRoomId");
+
+                    b.HasIndex("GameAccountId");
+
+                    b.HasIndex("GameRoomId");
+
+                    b.ToTable("GameAccountGameRooms");
+                });
+
             modelBuilder.Entity("DataBase.DbEntity.GameCharacter", b =>
                 {
                     b.Property<Guid>("GameCharacterId")
@@ -84,18 +105,41 @@ namespace DataBase.Migrations
                     b.ToTable("GameClasss");
                 });
 
-            modelBuilder.Entity("DataBase.DbEntity.Group", b =>
+            modelBuilder.Entity("DataBase.DbEntity.GameRoom", b =>
                 {
-                    b.Property<Guid>("GroupId")
+                    b.Property<Guid>("GameRoomId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("GroupName")
+                    b.Property<string>("AdminRoomEmail")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("GroupId");
+                    b.Property<string>("GameRoomName")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.ToTable("Groups");
+                    b.HasKey("GameRoomId");
+
+                    b.ToTable("GameRooms");
+                });
+
+            modelBuilder.Entity("DataBase.DbEntity.GameAccountGameRoom", b =>
+                {
+                    b.HasOne("DataBase.DbEntity.GameAccount", "GameAccount")
+                        .WithMany("GameAccountGameRoom")
+                        .HasForeignKey("GameAccountId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DataBase.DbEntity.GameRoom", "GameRoom")
+                        .WithMany("GameAccountGameRoom")
+                        .HasForeignKey("GameRoomId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("GameAccount");
+
+                    b.Navigation("GameRoom");
                 });
 
             modelBuilder.Entity("DataBase.DbEntity.GameCharacter", b =>
@@ -119,12 +163,19 @@ namespace DataBase.Migrations
 
             modelBuilder.Entity("DataBase.DbEntity.GameAccount", b =>
                 {
+                    b.Navigation("GameAccountGameRoom");
+
                     b.Navigation("gameCharacters");
                 });
 
             modelBuilder.Entity("DataBase.DbEntity.GameClass", b =>
                 {
                     b.Navigation("GameCharacters");
+                });
+
+            modelBuilder.Entity("DataBase.DbEntity.GameRoom", b =>
+                {
+                    b.Navigation("GameAccountGameRoom");
                 });
 #pragma warning restore 612, 618
         }

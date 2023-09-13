@@ -9,13 +9,20 @@ namespace DTO.Entity
     public class GameRoomDTO
     {
         public GameRoomDTO() { }
-        public GameRoomDTO(Guid GroupId, string GameRoomName)
+        public GameRoomDTO(Guid GameRoomId, string GameRoomName, string adminRoomEmailDTO)
         {
-            this.GroupId = GroupId;
+            this.GameRoomId = GameRoomId;
             this.GameRoomName = GameRoomName;
+            this.AdminRoomEmailDTO = adminRoomEmailDTO;
         }
 
-        public Guid GroupId { get; set; }
+   
+        public Guid GameRoomId { get; set; }
         public string GameRoomName { get; set; }
+
+        public string AdminRoomEmailDTO { get; set; }
+
+        public List<GameAccountDTO> AccountDTOs { get; set; } = new List<GameAccountDTO>();
+        public List<GameAccountGameRoomDTO> AccountGameRooms { get; set;}= new List<GameAccountGameRoomDTO>();
     }
 }

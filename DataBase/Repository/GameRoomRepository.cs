@@ -1,6 +1,7 @@
 ﻿using DataBase.DbEntity;
 using DataBase.MyDbContext;
 using DataBase.Repository.IRepository;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,14 +26,16 @@ namespace DataBase.Repository
 
         }
 
-        public Task<GameRoom> Get(Guid id)
+        public async Task<GameRoom> Get(Guid id)
         {
-            throw new NotImplementedException();
+            var gameRoom = await _dataContext.GameRooms.Include(q=>q.GameAccountGameRoom).FirstOrDefaultAsync(q => q.GameRoomId == id);
+            return gameRoom;
         }
 
-        public Task<List<GameRoom>> GetAll()
+        public async Task<List<GameRoom>> GetAll()
         {
-            throw new NotImplementedException();
+            var GameRooms = await _dataContext.GameRooms.ToListAsync();
+            return GameRooms;
         }
 
         public Task Remove(Guid id)

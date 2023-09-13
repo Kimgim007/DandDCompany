@@ -1,4 +1,5 @@
-﻿@model GameRoomViewModel
+﻿@using DTO.Entity
+@model GameRoomDTO
 
 <!doctype html>
 <html lang="en">
@@ -47,13 +48,19 @@
                     Назвагие группы:@Model.GameRoomName
                 </div>
                 <div class="p-2 border bg-light ">
-                    Описание группы: @Model.DiscriptionGameRoom
+                    Описание группы:
                 </div>
                 <div class="p-2 border bg-light ">
-                    Админ Группы :
+                    Админ Группы : @Model.AdminRoomEmailDTO
                 </div>
-                <div class="p-2 border bg-light ">
-                    Участники группы :
+                <div class="p-2 border bg-light">
+                    Участники группы : @foreach (var item in Model.AccountDTOs)
+                    {
+                        <div class="col-sm-4"style="text-align:center">
+                            @item.Email;
+                        </div>
+
+                    }
                 </div>
 
             </div>
@@ -66,7 +73,12 @@
 
             </div>
         </div>
-        <a class="btn btn-primary" href="#" role="button">Присоединиться к группе</a>
+        @if (Model.AdminRoomEmailDTO != User.Identity.Name)
+        {
+            @Html.ActionLink("JoinGameRoom","JoinTheRoom","GameRoom",new{@Roomid = Model.GameRoomId,@Login = User.Identity.Name})
+
+        }
+
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>

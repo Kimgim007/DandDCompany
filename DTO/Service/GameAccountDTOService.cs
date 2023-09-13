@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DataBase.Repository;
 using DTO.Entity;
+using DataBase.DbEntity;
 
 namespace DTO.Service
 {
@@ -29,11 +30,20 @@ namespace DTO.Service
             return gameAccountSort;
         }
 
-        public Task<GameAccountDTO> Get(Guid id)
+        public async Task<GameAccountDTO> Get(Guid id)
         {
-            throw new NotImplementedException();
+            var gameAccount = await _gameAccountRepository.Get(id);
+            var gameAccountSort = Mapnig.Maping.map(gameAccount);
+            return gameAccountSort;
         }
 
+        public async Task<GameAccountDTO> GetFromEmail(string Email)
+        {
+            var gameAccount = await _gameAccountRepository.GetFromEmail(Email);
+            var gameAccountSort = Mapnig.Maping.map(gameAccount);
+            return gameAccountSort;
+
+        }
         public Task<List<GameAccountDTO>> GetAll()
         {
             throw new NotImplementedException();

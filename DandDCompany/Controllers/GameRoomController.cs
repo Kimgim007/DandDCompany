@@ -11,80 +11,73 @@ namespace DandDCompany.Controllers
     public class GameRoomController : Controller
     {
         private IGameRoomDTOService _gameRoomDTOService;
-        public GameRoomController(IGameRoomDTOService groupDTOService)
+        public IGameAccountGameRoomDTOService _gameAccountGameRoomDTOService;
+        public IGameAccountDTOService _gameAccountDTOService;
+        public GameRoomController(IGameRoomDTOService groupDTOService, IGameAccountGameRoomDTOService gameAccountGameRoomDTOService, IGameAccountDTOService gameAccountDTOService)
         {
             this._gameRoomDTOService = groupDTOService;
+            this._gameAccountGameRoomDTOService = gameAccountGameRoomDTOService;
+            _gameAccountDTOService = gameAccountDTOService;
         }
         public IActionResult Index()
         {
             return View();
         }
 
-        [Authorize(Roles = "Admin")]
+
         [HttpGet]
-        public async Task<IActionResult> AddGameRoom(int Guid)
+        public async Task<IActionResult> AddGameRoom(string AdminRoomEmail, int Guid)
         {
             GameRoomViewModel groupViewModel;
             groupViewModel = new GameRoomViewModel()
             {
-
+                AdminRoomEmail = AdminRoomEmail,
             };
             return View(groupViewModel);
         }
         [HttpPost]
         public async Task<IActionResult> AddGameRoom(GameRoomViewModel groupViewModel)
         {
-            GameRoomDTO groupDTO = new GameRoomDTO(groupViewModel.GameRoomId, groupViewModel.GameRoomName);
+            GameRoomDTO groupDTO = new GameRoomDTO(groupViewModel.GameRoomId, groupViewModel.GameRoomName, groupViewModel.AdminRoomEmail);
             await _gameRoomDTOService.Add(groupDTO);
-            return RedirectToAction("Index", "Group");
+            return RedirectToAction("AddGameRoom", "GameRoom");
         }
 
-        public async Task<IActionResult> GameRoomView(string GameRoom, string DiscriptionGameRoom)
+        public async Task<IActionResult> GetGameRoom(Guid id)
+        {   
+           
+            var gameRoom = await _gameRoomDTOService.Get(id);
 
-        {
-            GameRoomViewModel groupViewMidel = new GameRoomViewModel
+            List<GameAccountDTO> gameAccountsDTO = new List<GameAccountDTO>();
+
+            foreach(var item in gameRoom.AccountGameRooms)
             {
-                GameRoomName = GameRoom,
-                DiscriptionGameRoom = DiscriptionGameRoom
-            };
-            return View(groupViewMidel);
+                gameAccountsDTO.Add(await _gameAccountDTOService.Get(item.GameAccountGameRoomDTOId));
+            }
+            gameRoom.AccountDTOs = gameAccountsDTO;
+            return View(gameRoom);
         }
 
-        public async Task<IActionResult> GameRoomsView()
+        public async Task<IActionResult> GetAllGameRoom()
         {
-            List<GameRoomViewModel> group = new List<GameRoomViewModel>();
-            group.Add(new GameRoomViewModel
-            {
-                GameRoomName = " Группа 1",
-                DiscriptionGameRoom = " Добрая группа быбыбыбыбыбыбыбыбыбы"
-            });
-            group.Add(new GameRoomViewModel
-            {
-                GameRoomName = " Группа 2",
-                DiscriptionGameRoom = " Злая группа выхыхыхых"
-            });
-            group.Add(new GameRoomViewModel
-            {
-                GameRoomName = " Группа 3",
-                DiscriptionGameRoom = " Нейтральная группа ыыыыы"
-            });
-            group.Add(new GameRoomViewModel
-            {
-                GameRoomName = " Группа 4",
-                DiscriptionGameRoom = " Полузлая группа ррррр"
-            });
-            group.Add(new GameRoomViewModel
-            {
-                GameRoomName = " Группа 5",
-                DiscriptionGameRoom = " Полудобрая группа оооо"
-            });
-            group.Add(new GameRoomViewModel
-            {
-                GameRoomName = " Группа 6",
-                DiscriptionGameRoom = " Полу группа иииии"
-            });
 
-            return View(group);
+            var gameRoom = await _gameRoomDTOService.GetAll();
+
+
+            return View(gameRoom);
+        }
+
+      
+        public async Task<IActionResult> JoinTheRoom(Guid Roomid, string Login)
+        {
+            var gameAccount = await _gameAccountDTOService.GetGameAccountForEmail(Login);
+
+            GameAccountDTO gameAccountDTO = new GameAccountDTO() { GameAccountDTOId = gameAccount.GameAccountDTOId };
+            GameRoomDTO gameRoomDTO = new GameRoomDTO() { GameRoomId = Roomid };
+
+            GameAccountGameRoomDTO gameAccountGameRoomDTO = new GameAccountGameRoomDTO(gameAccountDTO, gameRoomDTO);
+            await _gameAccountGameRoomDTOService.Add(gameAccountGameRoomDTO);
+            return RedirectToAction("GetAllGameRoom", "GameRoom");
         }
     }
 }

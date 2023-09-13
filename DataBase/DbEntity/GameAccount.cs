@@ -13,6 +13,7 @@ namespace DataBase.DbEntity
         public string Email { get; set; }
 
         public List<GameCharacter> gameCharacters { get; set; }= new List<GameCharacter>();
-       
+
+        public List<GameAccountGameRoom> GameAccountGameRoom { get; set; } = new List<GameAccountGameRoom>();
     }
 }

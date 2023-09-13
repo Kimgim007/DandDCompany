@@ -1,5 +1,5 @@
-﻿@model List<GameRoomViewModel>
-
+﻿@using DTO.Entity
+@model List<GameRoomDTO>
 <!doctype html>
 <html lang="en">
 <head>
@@ -50,7 +50,7 @@
                 <div class="col-sm-4">
 
                     <div class="p-2 border bg-light ">
-                        <h4 class="title"> @Html.ActionLink( @item.GameRoomName,"GameRoomsView","GameRoom",new{GameRoomName = item.GameRoomName, DiscriptionGameRoom=item.DiscriptionGameRoom},new { @class = "menu-element" }) </h4>
+                        <h4 class="title"> @Html.ActionLink( @item.GameRoomName,"GetGameRoom","GameRoom",new{@id = item.GameRoomId},new { @class = "menu-element" }) </h4>
                       
                     </div>
 

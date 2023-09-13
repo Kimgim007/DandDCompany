@@ -34,9 +34,16 @@ namespace DataBase.Repository
             return GameAccount;
         }
 
-        public Task<GameAccount> Get(Guid id)
+        public async Task<GameAccount> Get(Guid id)
         {
-            throw new NotImplementedException();
+           var gameAccount = await _dataContext.GameAccounts.FirstOrDefaultAsync(q=>q.GameAccountId == id);
+            return gameAccount;
+        }
+
+        public async Task<GameAccount> GetFromEmail(string Email)
+        {
+            var GameAccount = await _dataContext.GameAccounts.FirstOrDefaultAsync(q=>q.Email == Email);
+            return GameAccount;
         }
 
         public Task<List<GameAccount>> GetAll()

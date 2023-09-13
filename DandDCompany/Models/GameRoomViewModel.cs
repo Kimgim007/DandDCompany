@@ -7,6 +7,8 @@ namespace DandDCompany.Models
         public Guid GameRoomId { get; set; }
         public string GameRoomName { get; set; }
 
+        public string AdminRoomEmail { get; set; }
+
         public string DiscriptionGameRoom { get; set; }
 
         

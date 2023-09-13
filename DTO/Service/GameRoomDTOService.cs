@@ -22,14 +22,20 @@ namespace DTO.Service
             await _gameRoomRepository.Add(DTO.Service.Mapnig.Maping.map(gameRoomDTO));
         }
 
-        public Task<GameRoomDTO> Get(Guid id)
+        public async Task<GameRoomDTO> Get(Guid id)
         {
-            throw new NotImplementedException();
+           var GameRoom = await _gameRoomRepository.Get(id);
+            var GameRoomSort = Maping.map(GameRoom);
+
+            return GameRoomSort;
+
         }
 
-        public Task<List<GameRoomDTO>> GetAll()
+        public async Task<List<GameRoomDTO>> GetAll()
         {
-            throw new NotImplementedException();
+           var gameRooms = await _gameRoomRepository.GetAll();
+            var gameRoomsSort = gameRooms.Select(q=>Maping.map(q)).ToList();
+            return gameRoomsSort;
         }
 
         public Task Remove(Guid id)

@@ -18,5 +18,7 @@ namespace DTO.Entity
         public string Email { get; set; }
 
         public List<GameCharacterDTO> gameCharacterDTOs { get; set; } = new List<GameCharacterDTO>();
+
+        public List<GameAccountGameRoomDTO> AccountGameRooms { get; set; } = new List<GameAccountGameRoomDTO>();
     }
 }

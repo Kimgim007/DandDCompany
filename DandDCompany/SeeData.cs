@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
+using DTO.Interface;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 
 public static class SeedData
 {
- 
-    
     public static async Task InitializeAsync(IServiceProvider serviceProvider)
     {
         var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();

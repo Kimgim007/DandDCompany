@@ -35,15 +35,16 @@ namespace DataBase.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Groups",
+                name: "GameRooms",
                 columns: table => new
                 {
-                    GroupId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    GroupName = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    GameRoomId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    GameRoomName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AdminRoomEmail = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Groups", x => x.GroupId);
+                    table.PrimaryKey("PK_GameRooms", x => x.GameRoomId);
                 });
 
             migrationBuilder.CreateTable(
@@ -73,6 +74,41 @@ namespace DataBase.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "GameAccountGameRooms",
+                columns: table => new
+                {
+                    GameAccountGameRoomId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    GameAccountId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    GameRoomId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_GameAccountGameRooms", x => x.GameAccountGameRoomId);
+                    table.ForeignKey(
+                        name: "FK_GameAccountGameRooms_GameAccounts_GameAccountId",
+                        column: x => x.GameAccountId,
+                        principalTable: "GameAccounts",
+                        principalColumn: "GameAccountId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_GameAccountGameRooms_GameRooms_GameRoomId",
+                        column: x => x.GameRoomId,
+                        principalTable: "GameRooms",
+                        principalColumn: "GameRoomId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GameAccountGameRooms_GameAccountId",
+                table: "GameAccountGameRooms",
+                column: "GameAccountId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GameAccountGameRooms_GameRoomId",
+                table: "GameAccountGameRooms",
+                column: "GameRoomId");
+
             migrationBuilder.CreateIndex(
                 name: "IX_GameAccounts_Email",
                 table: "GameAccounts",
@@ -93,10 +129,13 @@ namespace DataBase.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "GameAccountGameRooms");
+
+            migrationBuilder.DropTable(
                 name: "GameCharacters");
 
             migrationBuilder.DropTable(
-                name: "Groups");
+                name: "GameRooms");
 
             migrationBuilder.DropTable(
                 name: "GameAccounts");
