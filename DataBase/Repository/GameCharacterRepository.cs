@@ -1,6 +1,7 @@
 ﻿using DataBase.DbEntity;
 using DataBase.MyDbContext;
 using DataBase.Repository.IRepository;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,9 +23,10 @@ namespace DataBase.Repository
             await _dataContext.SaveChangesAsync();
         }
 
-        public Task<GameCharacter> Get(Guid id)
+        public async Task<GameCharacter> Get(Guid id)
         {
-            throw new NotImplementedException();
+           var GameChar = await _dataContext.GameCharacters.FirstOrDefaultAsync(q=>q.GameCharacterId== id);
+            return GameChar;
         }
 
         public Task<List<GameCharacter>> GetAll()

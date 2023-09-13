@@ -1,4 +1,4 @@
-﻿@model GroupViewModel
+﻿@model GameRoomViewModel
 
 <head>
 
@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    @if (@Model.GrupId == Guid.Empty)
+    @if (@Model.GameRoomId == Guid.Empty)
     {
 
         <h1 style="text-align:center;font-weight: 400;">Add Group</h1>
@@ -35,13 +35,13 @@
 
                     </div>
 
-                    @Html.TextBoxFor(x => x.GroupName)
-                    @Html.ValidationMessageFor(x=>x.GroupName)
+                    @Html.TextBoxFor(x => x.GameRoomName)
+                    @Html.ValidationMessageFor(x=>x.GameRoomName)
                 </p>
 
             </div>
-            @Html.HiddenFor(x=>x.GrupId)
-            @if (@Model.GrupId == Guid.Empty)
+            @Html.HiddenFor(x=>x.GameRoomId)
+            @if (@Model.GameRoomId == Guid.Empty)
             {
                 <div style="text-align:center">
                     <input type="submit" value="Add Group" />

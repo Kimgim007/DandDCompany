@@ -1,7 +1,11 @@
 ﻿@model GameCharacterViewModel
 
 <head>
-
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
     <style>
 
 
@@ -14,23 +18,23 @@
     @if (@Model.GameCharacterId == Guid.Empty)
     {
 
-        <h1 style="text-align:center;font-weight: 400;">Add Player</h1>
+        <h1 style="text-align:center;font-weight: 400;">Create Char </h1>
         <hr />
 
     }
     else
     {
-        <h1 style="text-align:center; font-weight: 400;"> Update Player</h1>
+        <h1 style="text-align:center; font-weight: 400;"> Update Char</h1>
         <hr />
     }
     <div style="width:100%;">
 
-        <form action="/Player/AddPlayer" method="post">
+        <form action="/GameCharacter/AddGameCharacter" method="post">
             <div style="text-align:center">
                 <p>
                     <div>
                         <h5 style="font-weight: 400;">
-                            Enter PlayerName:
+                            Enter Game Char Name:
                         </h5>
 
                     </div>
@@ -41,17 +45,31 @@
 
 
             </div>
+
+            <div style="text-align:center;margin-bottom:20px;">
+                <h5>Select Class</h5>
+               
+
+                <select name="GameClassId" id="AddGameCharacter">
+                    @foreach (var item in Model.gameClassDTOs)
+                    {
+                        <option value="@item.GameClassDTOId">@item.GameClassName</option>
+                    }
+                </select>
+            </div>
+
             @Html.HiddenFor(x=>x.GameCharacterId)
+            @Html.HiddenFor(q=>q.GmaeAccountId)
             @if (@Model.GameCharacterId == Guid.Empty)
             {
                 <div style="text-align:center">
-                    <input type="submit" value="Add Player" />
+                    <input type="submit" value="Create Char" />
                 </div>
             }
             else
             {
                 <div style="text-align:center">
-                    <input type="submit" value="Player" />
+                    <input type="submit" value="Update Char" />
                 </div>
             }
         </form>

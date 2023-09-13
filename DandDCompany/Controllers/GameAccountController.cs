@@ -19,7 +19,8 @@ namespace DandDCompany.Controllers
         public async Task<IActionResult> GetGameAccount(string email)
         {
             var gmaeAccount = await _gameAccountDTOService.GetGameAccountForEmail(email);
-            return View(gmaeAccount);
+            var gameAccountSeeFromDubag = gmaeAccount;
+            return View(gameAccountSeeFromDubag);
         }
     }
 }

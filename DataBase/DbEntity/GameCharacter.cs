@@ -12,7 +12,11 @@ namespace DataBase.DbEntity
         public string? GameCharacterName { get; set; }
         public string? DiscriptionGameChar { get; set; }
 
-     
+        public Guid GameClassId { get; set; }
+        public  GameClass GameClass { get; set; }
 
+        public Guid GameAccountId { get; set; }
+        public GameAccount GameAccount { get; set; }
+      
     }
 }

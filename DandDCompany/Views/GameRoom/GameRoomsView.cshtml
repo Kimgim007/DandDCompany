@@ -1,4 +1,4 @@
-﻿@model List<GroupViewModel>
+﻿@model List<GameRoomViewModel>
 
 <!doctype html>
 <html lang="en">
@@ -50,7 +50,7 @@
                 <div class="col-sm-4">
 
                     <div class="p-2 border bg-light ">
-                        <h4 class="title"> @Html.ActionLink(   @item.GroupName,"GroupView","Group",new{GroupName = item.GroupName, DiscriptionGroup=item.DiscriptionGroup},new { @class = "menu-element" }) </h4>
+                        <h4 class="title"> @Html.ActionLink( @item.GameRoomName,"GameRoomsView","GameRoom",new{GameRoomName = item.GameRoomName, DiscriptionGameRoom=item.DiscriptionGameRoom},new { @class = "menu-element" }) </h4>
                       
                     </div>
 

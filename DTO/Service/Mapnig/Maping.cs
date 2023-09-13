@@ -17,14 +17,21 @@ namespace DTO.Service.Mapnig
             {
                 GameCharacterId = gameCharacterDTO.GameCharacterId,
                 GameCharacterName = gameCharacterDTO.GameCharacterName,
+                GameClassId = gameCharacterDTO.GameClassDTO.GameClassDTOId,
+                GameAccountId = gameCharacterDTO.gameAccountDTO.GameAccountDTOId
             };
         }
         public static GameCharacterDTO map(GameCharacter gameCharacter)
         {
+            GameClassDTO gameClassDTO = new GameClassDTO() { GameClassDTOId = gameCharacter.GameClassId};
+            GameAccountDTO gameAccountDTO = new GameAccountDTO() {GameAccountDTOId = gameCharacter.GameAccountId };
             return new GameCharacterDTO()
             {
                 GameCharacterId = gameCharacter.GameCharacterId,
                 GameCharacterName = gameCharacter.GameCharacterName,
+
+                GameClassDTO = gameClassDTO,
+                gameAccountDTO = gameAccountDTO
             };
         }
 
@@ -32,9 +39,11 @@ namespace DTO.Service.Mapnig
         {
             return new GameClass()
             {
-                GameClassId = gameClassDTO.GameClassId,
+                GameClassId = gameClassDTO.GameClassDTOId,
                 GameClassName = gameClassDTO.GameClassName,
                 DescriptionGameClass = gameClassDTO.DescriptionGameClass,
+
+
 
             };
         }
@@ -42,27 +51,27 @@ namespace DTO.Service.Mapnig
         {
             return new GameClassDTO()
             {
-                GameClassId = gameClass.GameClassId,
+                GameClassDTOId = gameClass.GameClassId,
                 GameClassName = gameClass.GameClassName,
                 DescriptionGameClass = gameClass.DescriptionGameClass,
 
 
             };
         }
-        public static Group map(GroupDTO groupDTO)
+        public static GameRoom map(GameRoomDTO groupDTO)
         {
-            return new Group()
+            return new GameRoom()
             {
-                GroupId = groupDTO.GroupId,
-                GroupName = groupDTO.GroupName
+                GameRoomId = groupDTO.GroupId,
+                GameRoomName = groupDTO.GameRoomName
             };
         }
-        public static GroupDTO map(Group group)
+        public static GameRoomDTO map(GameRoom group)
         {
-            return new GroupDTO()
+            return new GameRoomDTO()
             {
-                GroupId = group.GroupId,
-                GroupName = group.GroupName
+                GroupId = group.GameRoomId,
+                GameRoomName = group.GameRoomName
             };
         }
 
@@ -77,12 +86,20 @@ namespace DTO.Service.Mapnig
 
         public static GameAccountDTO map(GameAccount gameAccount)
         {
+            List<GameCharacterDTO> list = new List<GameCharacterDTO>();
+            list = gameAccount.gameCharacters.Select(q=>map(q)).ToList();
             return new GameAccountDTO()
             {
                 GameAccountDTOId = gameAccount.GameAccountId,
-                Email = gameAccount.Email
+                Email = gameAccount.Email,
+
+                gameCharacterDTOs = list
+
+
             };
         }
+
+     
 
     }
 }

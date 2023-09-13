@@ -39,7 +39,7 @@ namespace DandDCompany.Controllers
                 var gameClass = await _GameClassDTOService.Get(id);
                 classViewModel = new GameClassViewModel()
                 {
-                    GameClassId = gameClass.GameClassId,
+                    GameClassId = gameClass.GameClassDTOId,
                     GameClassName = gameClass.GameClassName,
                     DescriptionGameClass= gameClass.DescriptionGameClass,
 
@@ -58,7 +58,7 @@ namespace DandDCompany.Controllers
             }
             else
             {
-                classDTO.GameClassId = classViewModel.GameClassId;
+                classDTO.GameClassDTOId = classViewModel.GameClassId;
                 await _GameClassDTOService.Update(classDTO);
             }
            

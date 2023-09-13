@@ -1,4 +1,6 @@
 ﻿using DandDCompany.Models;
+using DTO.Entity;
+
 namespace DandDCompany.Models
 {
     public class GameCharacterViewModel
@@ -13,7 +15,8 @@ namespace DandDCompany.Models
 
         public Guid GameClassViewModelId { get; set; }
         public GameClassViewModel GameClassViewModel { get; set; }
+        public List<GameClassDTO> gameClassDTOs { get; set; }
 
-     
+        public Guid GmaeAccountId { get; set; }
     }
 }

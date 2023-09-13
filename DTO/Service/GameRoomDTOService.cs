@@ -9,25 +9,25 @@ using System.Threading.Tasks;
 using DTO.Service.Mapnig;
 namespace DTO.Service
 {
-    public class GroupDTOService : IGroupDTOService
+    public class GameRoomDTOService : IGameRoomDTOService
     {
-        private GroupRepository _groupRepository;
-        public GroupDTOService(GroupRepository groupRepository)
+        private GameRoomRepository _gameRoomRepository;
+        public GameRoomDTOService(GameRoomRepository groupRepository)
         {
-            this._groupRepository = groupRepository;    
+            this._gameRoomRepository = groupRepository;    
         }
 
-        public async Task Add(GroupDTO groupDTO)
+        public async Task Add(GameRoomDTO gameRoomDTO)
         {
-            await _groupRepository.Add(DTO.Service.Mapnig.Maping.map(groupDTO));
+            await _gameRoomRepository.Add(DTO.Service.Mapnig.Maping.map(gameRoomDTO));
         }
 
-        public Task<GroupDTO> Get(Guid id)
+        public Task<GameRoomDTO> Get(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<List<GroupDTO>> GetAll()
+        public Task<List<GameRoomDTO>> GetAll()
         {
             throw new NotImplementedException();
         }
@@ -37,7 +37,7 @@ namespace DTO.Service
             throw new NotImplementedException();
         }
 
-        public Task Update(GroupDTO groupDTO)
+        public Task Update(GameRoomDTO groupDTO)
         {
             throw new NotImplementedException();
         }

@@ -11,6 +11,7 @@ using DTO.Service;
 using DataBase.Repository;
 using DataBase.Repository.IRepository;
 using DataBase.DbEntity;
+using DTO.Entity;
 
 namespace DTO.RegisterDI
 {
@@ -21,9 +22,10 @@ namespace DTO.RegisterDI
             DataBase.RegisterDI.RegisterDI.Register(service);
 
             service.AddScoped<GameClassRepository>();
-            service.AddScoped<GroupRepository>();
+            service.AddScoped<GameRoomRepository>();
             service.AddScoped<GameCharacterRepository>();
             service.AddScoped<GameAccountRepository>();
+          
 
 
         }

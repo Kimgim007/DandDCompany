@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DataBase.DbEntity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace DataBase.MyDbContext
 {
@@ -14,10 +15,10 @@ namespace DataBase.MyDbContext
         public DataContext() { }
 
         public DbSet<GameCharacter> GameCharacters { get; set; }
-        public DbSet<Group> Groups { get; set; }
+        public DbSet<GameRoom> GameRooms { get; set; }
         public DbSet<GameClass> GameClasss { get; set; }  
         public DbSet<GameAccount> GameAccounts { get; set; }
-
+      
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             var connectionsString = "Server=(localdb)\\MSSQLLocalDB;Database=DandDCompany;Trusted_Connection=True;";
@@ -36,18 +37,20 @@ namespace DataBase.MyDbContext
             modelBuilder.Entity<GameCharacter>(entityTypeBuilder =>
             {
                 entityTypeBuilder.HasKey(x => x.GameCharacterId);
+
+                entityTypeBuilder.HasOne(q=>q.GameClass).WithMany(q=>q.GameCharacters).HasForeignKey(q=>q.GameCharacterId);
             });
 
-            modelBuilder.Entity<Group>(entityTypeBuilder =>
+            modelBuilder.Entity<GameRoom>(entityTypeBuilder =>
             {
-                entityTypeBuilder.HasKey(x => x.GroupId);
+                entityTypeBuilder.HasKey(x => x.GameRoomId);
             });
 
             modelBuilder.Entity<GameClass>(entityTypeBuilder =>
             {
-                entityTypeBuilder.HasKey(x => x.GameClassId);
+                //entityTypeBuilder.HasKey(x => x.GameClassId);
 
-
+                entityTypeBuilder.HasMany(q=>q.GameCharacters).WithOne(q=>q.GameClass).HasForeignKey(x=>x.GameClassId);
             });
 
             modelBuilder.Entity<GameAccount>(entityTypeBuilder =>
@@ -57,6 +60,7 @@ namespace DataBase.MyDbContext
               
             });
 
+          
         }
     }
 }

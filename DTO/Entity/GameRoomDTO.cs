@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace DTO.Entity
 {
-    public class GroupDTO
+    public class GameRoomDTO
     {
-        public GroupDTO() { }
-        public GroupDTO(Guid GroupId, string GroupName)
+        public GameRoomDTO() { }
+        public GameRoomDTO(Guid GroupId, string GameRoomName)
         {
             this.GroupId = GroupId;
-            this.GroupName = GroupName;
+            this.GameRoomName = GameRoomName;
         }
 
         public Guid GroupId { get; set; }
-        public string GroupName { get; set; }
+        public string GameRoomName { get; set; }
     }
 }

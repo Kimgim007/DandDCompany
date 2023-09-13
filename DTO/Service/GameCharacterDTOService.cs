@@ -12,21 +12,23 @@ namespace DTO.Service
     public class GameCharacterDTOService : IGameCharacterDTOService
     {
         private GameCharacterRepository _gameCharacter;
-        public GameCharacterDTOService(GameCharacterRepository gameCharacterRepository) 
+        public GameCharacterDTOService(GameCharacterRepository gameCharacterRepository)
         {
-        this._gameCharacter = gameCharacterRepository;
+            this._gameCharacter = gameCharacterRepository;
         }
         public async Task Add(GameCharacterDTO gameCharacterDTO)
         {
             await _gameCharacter.Add(DTO.Service.Mapnig.Maping.map(gameCharacterDTO));
         }
 
-        public Task<GameClassDTO> Get(Guid id)
+        public async Task<GameCharacterDTO> Get(Guid id)
         {
-            throw new NotImplementedException();
+            var GameChar = await _gameCharacter.Get(id);
+            var GameCharSort = Mapnig.Maping.map(GameChar);
+            return GameCharSort;
         }
 
-        public Task<List<GameClassDTO>> GetAll()
+        public Task<List<GameCharacterDTO>> GetAll()
         {
             throw new NotImplementedException();
         }

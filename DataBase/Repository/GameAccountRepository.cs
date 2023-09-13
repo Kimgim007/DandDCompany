@@ -30,7 +30,7 @@ namespace DataBase.Repository
 
         public async Task<GameAccount> GetGameAccountForEmail(string Email)
         {
-            var GameAccount = await _dataContext.GameAccounts.FirstOrDefaultAsync(q => q.Email == Email);
+            var GameAccount = await _dataContext.GameAccounts.Include(q=>q.gameCharacters).FirstOrDefaultAsync(q => q.Email == Email);
             return GameAccount;
         }
 

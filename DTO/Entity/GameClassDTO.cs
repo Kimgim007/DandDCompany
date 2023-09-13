@@ -12,15 +12,15 @@ namespace DTO.Entity
         public GameClassDTO() { }
         public GameClassDTO(Guid gameClassId, string gameClassName, string? descriptionGameClass)
         {
-            this.GameClassId = gameClassId;
+            this.GameClassDTOId = gameClassId;
             this.GameClassName = gameClassName;
             this.DescriptionGameClass = descriptionGameClass;
         }
 
-        public Guid GameClassId { get; set; }
+        public Guid GameClassDTOId { get; set; }
         public string? GameClassName { get; set; }
         public string? DescriptionGameClass { get; set; }
 
-
+        public List<GameCharacterDTO>? GameCharacters { get; set; }=new List<GameCharacterDTO>();
     }
 }

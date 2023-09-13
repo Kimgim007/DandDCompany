@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace DataBase.DbEntity
 {
-    public class Group
+    public class GameRoom
     {
     
-        public Guid GroupId { get; set; }
-        public string? GroupName { get; set; }
+        public Guid GameRoomId { get; set; }
+        public string? GameRoomName { get; set; }
       
     }
 }

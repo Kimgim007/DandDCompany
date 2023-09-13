@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataBase.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230909154848_Mig_1")]
+    [Migration("20230912141143_Mig_1")]
     partial class Mig_1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -51,10 +51,20 @@ namespace DataBase.Migrations
                     b.Property<string>("DiscriptionGameChar")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("GameAccountId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("GameCharacterName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("GameClassId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("GameCharacterId");
+
+                    b.HasIndex("GameAccountId");
+
+                    b.HasIndex("GameClassId");
 
                     b.ToTable("GameCharacters");
                 });
@@ -88,6 +98,35 @@ namespace DataBase.Migrations
                     b.HasKey("GroupId");
 
                     b.ToTable("Groups");
+                });
+
+            modelBuilder.Entity("DataBase.DbEntity.GameCharacter", b =>
+                {
+                    b.HasOne("DataBase.DbEntity.GameAccount", "GameAccount")
+                        .WithMany("gameCharacters")
+                        .HasForeignKey("GameAccountId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DataBase.DbEntity.GameClass", "GameClass")
+                        .WithMany("GameCharacters")
+                        .HasForeignKey("GameClassId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("GameAccount");
+
+                    b.Navigation("GameClass");
+                });
+
+            modelBuilder.Entity("DataBase.DbEntity.GameAccount", b =>
+                {
+                    b.Navigation("gameCharacters");
+                });
+
+            modelBuilder.Entity("DataBase.DbEntity.GameClass", b =>
+                {
+                    b.Navigation("GameCharacters");
                 });
 #pragma warning restore 612, 618
         }

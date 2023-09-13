@@ -10,27 +10,27 @@ using System.Threading.Tasks;
 
 namespace DataBase.Repository
 {
-    public class GroupRepository : IRepository<Group>
+    public class GameRoomRepository : IRepository<GameRoom>
     {
         private DataContext _dataContext;
-        public GroupRepository(DataContext dataContext)
+        public GameRoomRepository(DataContext dataContext)
         {
             this._dataContext = dataContext;
         }
 
-        public async Task Add(Group group)
+        public async Task Add(GameRoom gameRoom)
         {
-            _dataContext.Groups.Add(group);
+            _dataContext.GameRooms.Add(gameRoom);
             await _dataContext.SaveChangesAsync();
 
         }
 
-        public Task<Group> Get(Guid id)
+        public Task<GameRoom> Get(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<List<Group>> GetAll()
+        public Task<List<GameRoom>> GetAll()
         {
             throw new NotImplementedException();
         }
@@ -40,7 +40,7 @@ namespace DataBase.Repository
             throw new NotImplementedException();
         }
 
-        public Task Update(Group obj)
+        public Task Update(GameRoom obj)
         {
             throw new NotImplementedException();
         }

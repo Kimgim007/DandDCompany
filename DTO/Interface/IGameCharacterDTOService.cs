@@ -10,8 +10,8 @@ namespace DTO.Interface
     public interface IGameCharacterDTOService
     {
         Task Add(GameCharacterDTO gameCharacterDTO);
-        Task<GameClassDTO> Get(Guid id);
-        Task<List<GameClassDTO>> GetAll();
+        Task<GameCharacterDTO> Get(Guid id);
+        Task<List<GameCharacterDTO>> GetAll();
         Task Update(GameCharacterDTO gameCharacterDTO);
         Task Remove(Guid id);
     }
