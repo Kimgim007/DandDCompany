@@ -17,6 +17,7 @@ namespace DTO.Service.Mapnig
             {
                 GameCharacterId = gameCharacterDTO.GameCharacterId,
                 GameCharacterName = gameCharacterDTO.GameCharacterName,
+                DiscriptionGameChar = gameCharacterDTO.DescriptionGameChar,
 
                 GameClassId = gameCharacterDTO.GameClassDTO.GameClassDTOId,
                 GameAccountId = gameCharacterDTO.gameAccountDTO.GameAccountDTOId
@@ -30,6 +31,7 @@ namespace DTO.Service.Mapnig
             {
                 GameCharacterId = gameCharacter.GameCharacterId,
                 GameCharacterName = gameCharacter.GameCharacterName,
+                DescriptionGameChar = gameCharacter.DiscriptionGameChar,
 
                 GameClassDTO = gameClassDTO,
                 gameAccountDTO = gameAccountDTO
@@ -75,7 +77,7 @@ namespace DTO.Service.Mapnig
         public static GameRoomDTO map(GameRoom gameRoom)
         {
             List<GameAccountGameRoomDTO> gameAccountGameRoomDTO = new List<GameAccountGameRoomDTO>();
-            gameAccountGameRoomDTO = gameRoom.GameAccountGameRoom.Select(q => map(q)).ToList();
+            gameAccountGameRoomDTO =  gameRoom.GameAccountGameRoom.Select(q => map(q)).ToList();
 
             return new GameRoomDTO()
             {
@@ -89,22 +91,24 @@ namespace DTO.Service.Mapnig
             };
         }
 
-        public static GameAccount map(GameAccountDTO gameAccountDTO)
+        public static Account map(GameAccountDTO gameAccountDTO)
         {
-            return new GameAccount()
+            return new Account()
             {
-                GameAccountId = gameAccountDTO.GameAccountDTOId,
+                AccountId = gameAccountDTO.GameAccountDTOId,
                 Email = gameAccountDTO.Email,
             };
         }
 
-        public static GameAccountDTO map(GameAccount gameAccount)
+        public static GameAccountDTO map(Account gameAccount)
         {
             List<GameCharacterDTO> list = new List<GameCharacterDTO>();
+          
             list = gameAccount.gameCharacters.Select(q => map(q)).ToList();
+
             return new GameAccountDTO()
             {
-                GameAccountDTOId = gameAccount.GameAccountId,
+                GameAccountDTOId = gameAccount.AccountId,
                 Email = gameAccount.Email,
 
                 gameCharacterDTOs = list
@@ -118,10 +122,13 @@ namespace DTO.Service.Mapnig
         {
             return new GameAccountGameRoom()
             {
-                GameAccountGameRoomId = gameAccountGameRoomDTO.GameAccountGameRoomDTOId,
 
                 GameAccountId = gameAccountGameRoomDTO.GameAccountDTO.GameAccountDTOId,
-                GameRoomId = gameAccountGameRoomDTO.GameRoomDTO.GameRoomId
+                GameRoomId = gameAccountGameRoomDTO.GameRoomDTO.GameRoomId,
+                GameCharacterId= gameAccountGameRoomDTO.GameCharacter.GameCharacterId,
+                Pass = gameAccountGameRoomDTO.PassDTO
+
+                
             };
         }
 
@@ -129,12 +136,19 @@ namespace DTO.Service.Mapnig
         {
             GameAccountDTO gameAccountDTO = new GameAccountDTO() { GameAccountDTOId = gameAccountGameRoom.GameAccountId };
             GameRoomDTO gameRoomDTO = new GameRoomDTO() { GameRoomId = gameAccountGameRoom.GameRoomId };
+            GameCharacterDTO gameCharacterDTO = new GameCharacterDTO() {GameCharacterId = gameAccountGameRoom.GameCharacterId };
+
             return new GameAccountGameRoomDTO()
             {
-                GameAccountGameRoomDTOId = gameAccountGameRoom.GameAccountId,
+               
 
                 GameAccountDTO = gameAccountDTO,
-                GameRoomDTO = gameRoomDTO
+                GameRoomDTO = gameRoomDTO,
+                GameCharacter = gameCharacterDTO,
+
+                PassDTO = gameAccountGameRoom.Pass
+
+                
             };
         }
 

@@ -1,4 +1,5 @@
 ﻿using DataBase.DbEntity;
+using DataBase.MyDbContext;
 using DataBase.Repository;
 using DTO.Entity;
 using DTO.Interface;
@@ -27,19 +28,30 @@ namespace DTO.Service
             throw new NotImplementedException();
         }
 
+        public async Task<GameAccountGameRoomDTO> GetFromAcoountIdandRoomId(Guid gameAccountId, Guid gameRoomId)
+        {
+            var gameAccountGameRoom = Mapnig.Maping.map(await _gameAccountGameRoomRepository.GetFromAcoountIdandRoomId(gameAccountId, gameRoomId));
+            return gameAccountGameRoom;
+        }
+
         public Task<List<GameAccountGameRoomDTO>> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public Task Remove(Guid id)
+        public async Task Remove(Guid id)
         {
-            throw new NotImplementedException();
+            await _gameAccountGameRoomRepository.Remove(id);
         }
 
-        public Task Update(GameAccountGameRoomDTO gameAccountGameRoomDTO)
+        public async Task RemoveByAccountIdRoomId(Guid gameAccountId,Guid gameRoomId)
         {
-            throw new NotImplementedException();
+            await _gameAccountGameRoomRepository.RemoveByAccountIdRoomId(gameAccountId, gameRoomId);
+        }
+
+        public async Task Update(GameAccountGameRoomDTO gameAccountGameRoomDTO)
+        {
+          await  _gameAccountGameRoomRepository.Update(Mapnig.Maping.map(gameAccountGameRoomDTO));
         }
     }
 }

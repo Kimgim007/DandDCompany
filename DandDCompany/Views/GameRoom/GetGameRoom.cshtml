@@ -54,10 +54,47 @@
                     Админ Группы : @Model.AdminRoomEmailDTO
                 </div>
                 <div class="p-2 border bg-light">
-                    Участники группы : @foreach (var item in Model.AccountDTOs)
+                    Участники группы : @foreach (var item in Model.AccountDTOsAnswerTrue)
                     {
-                        <div class="col-sm-4"style="text-align:center">
+                    
+                        <div class="col-sm-4" style="text-align:center">
                             @item.Email;
+
+                            и его персонаж:  @foreach (var gameChar in item.gameCharacterDTOs)
+                            {
+                                @gameChar.GameCharacterName
+                            }
+                        </div>
+                    }
+
+                </div>
+                <div class="p-2 border bg-light">
+                    Участники ожидающие вступление в группу :
+                    @foreach (var item in Model.AccountDTOsAnswerFalse)
+                    {
+                        <div class="col-sm-4" style="text-align:center">
+                            @item.Email;
+
+                            и его персонаж:  @foreach (var gameChar in item.gameCharacterDTOs)
+                            {
+                                @gameChar.GameCharacterName
+
+                                @if (Model.AdminRoomEmailDTO == User.Identity.Name)
+                                {
+                                    @Html.ActionLink("Принять в группу","PassAnswer","GameAccountGameRoom",new{@answer =true,@gameAccountId = item.GameAccountDTOId,@gameRoomId = Model.GameRoomId,@gameCharId= gameChar.GameCharacterId})
+                                }
+                            }
+
+                           
+                            @if (@User.Identity.Name == @item.Email)
+                            {
+                                @Html.ActionLink("Выйти из листа ожидания","RemoveByAccountIdRoomId","GameAccountGameRoom",new{@gameAccountId = item.GameAccountDTOId,@gameRoomId = Model.GameRoomId})
+                            }
+                            @if (Model.AdminRoomEmailDTO == User.Identity.Name)
+                            {
+                                @Html.ActionLink(" Отказать на вступление в группу","RemoveByAccountIdRoomId","GameAccountGameRoom",new{@gameAccountId = item.GameAccountDTOId,@gameRoomId = Model.GameRoomId})
+                            }
+
                         </div>
 
                     }
@@ -75,7 +112,7 @@
         </div>
         @if (Model.AdminRoomEmailDTO != User.Identity.Name)
         {
-            @Html.ActionLink("JoinGameRoom","JoinTheRoom","GameRoom",new{@Roomid = Model.GameRoomId,@Login = User.Identity.Name})
+            @Html.ActionLink("JoinGameRoom","JoinTheRoom","GameRoom",new{@Roomid = Model.GameRoomId,@AccountEmail = User.Identity.Name})
 
         }
 

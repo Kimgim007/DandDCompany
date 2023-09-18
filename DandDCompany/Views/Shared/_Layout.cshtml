@@ -37,7 +37,7 @@
                         </li>
                         @if (User.IsInRole("Admin"))
                         {
-
+                            
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Group" asp-action="AddGroup">AddGroup</a>
                             </li>
@@ -53,7 +53,7 @@
                         @if(User.Identity.IsAuthenticated)
                         {
 
-                            @Html.ActionLink("Game Account     ","GetGameAccount","GameAccount",new{@email = User.Identity.Name},new{style ="text-decoration:none;font-weight: 400; color: black;"})
+                            @Html.ActionLink("Game Account","GetGameAccount","GameAccount",new{@email = User.Identity.Name},new{style ="text-decoration:none;font-weight: 400; color: black;"})
                           
                             @Html.ActionLink("Add Game Room","AddGameRoom","GameRoom",new{@AdminRoomEmail = User.Identity.Name},new{style ="text-decoration:none;font-weight: 400; color: black;"})
                         }

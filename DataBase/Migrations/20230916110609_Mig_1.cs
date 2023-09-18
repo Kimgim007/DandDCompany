@@ -80,7 +80,9 @@ namespace DataBase.Migrations
                 {
                     GameAccountGameRoomId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     GameAccountId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    GameRoomId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    GameRoomId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    GameCharacterId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    Pass = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -91,6 +93,11 @@ namespace DataBase.Migrations
                         principalTable: "GameAccounts",
                         principalColumn: "GameAccountId",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_GameAccountGameRooms_GameCharacters_GameCharacterId",
+                        column: x => x.GameCharacterId,
+                        principalTable: "GameCharacters",
+                        principalColumn: "GameCharacterId");
                     table.ForeignKey(
                         name: "FK_GameAccountGameRooms_GameRooms_GameRoomId",
                         column: x => x.GameRoomId,
@@ -103,6 +110,11 @@ namespace DataBase.Migrations
                 name: "IX_GameAccountGameRooms_GameAccountId",
                 table: "GameAccountGameRooms",
                 column: "GameAccountId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GameAccountGameRooms_GameCharacterId",
+                table: "GameAccountGameRooms",
+                column: "GameCharacterId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_GameAccountGameRooms_GameRoomId",

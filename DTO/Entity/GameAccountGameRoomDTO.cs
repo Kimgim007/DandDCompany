@@ -10,22 +10,19 @@ namespace DTO.Entity
     {
         public GameAccountGameRoomDTO() { }
 
-        public GameAccountGameRoomDTO( GameAccountDTO gameAccountDTO, GameRoomDTO gameRoomDTO)
+        public GameAccountGameRoomDTO( GameAccountDTO gameAccountDTO, GameRoomDTO gameRoomDTO,bool PassDTO,GameCharacterDTO gameCharacter)
         {
         
             this.GameAccountDTO = gameAccountDTO;
             this.GameRoomDTO = gameRoomDTO;
+            this.PassDTO = PassDTO;
+            this.GameCharacter = gameCharacter;
         }
-
-        public GameAccountGameRoomDTO(Guid GameAccountGameRoomId , GameAccountDTO gameAccountDTO,GameRoomDTO gameRoomDTO)
-        {
-            this.GameAccountGameRoomDTOId = GameAccountGameRoomId;
-            this.GameAccountDTO = gameAccountDTO;
-            this.GameRoomDTO = gameRoomDTO;
-        }
-        public Guid GameAccountGameRoomDTOId { get; set; }
 
         public GameAccountDTO GameAccountDTO { get; set; }
         public GameRoomDTO GameRoomDTO { get; set; }
+        public GameCharacterDTO GameCharacter { get; set; }
+
+        public bool PassDTO { get; set; }
     }
 }

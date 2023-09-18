@@ -36,11 +36,20 @@
                         <h5 style="font-weight: 400;">
                             Enter Game Char Name:
                         </h5>
-
                     </div>
 
                     @Html.TextBoxFor(x => x.GameCharacterName)
                     @Html.ValidationMessageFor(x=>x.GameCharacterName)
+                </p>
+                <p>
+                    <div>
+                        <h5 style="font-weight: 400;">
+                            Enter Game Char Description:
+                        </h5>
+                    </div>
+
+                    @Html.TextBoxFor(x => x.DescriptionGameChar)
+                    @Html.ValidationMessageFor(x=>x.DescriptionGameChar)
                 </p>
 
 

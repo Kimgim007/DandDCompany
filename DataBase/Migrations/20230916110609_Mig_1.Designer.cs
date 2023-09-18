@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataBase.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230913122000_Mig_1")]
+    [Migration("20230916110609_Mig_1")]
     partial class Mig_1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -51,12 +51,20 @@ namespace DataBase.Migrations
                     b.Property<Guid>("GameAccountId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("GameCharacterId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid>("GameRoomId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("Pass")
+                        .HasColumnType("bit");
 
                     b.HasKey("GameAccountGameRoomId");
 
                     b.HasIndex("GameAccountId");
+
+                    b.HasIndex("GameCharacterId");
 
                     b.HasIndex("GameRoomId");
 
@@ -133,6 +141,10 @@ namespace DataBase.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("DataBase.DbEntity.GameCharacter", "GameCharacter")
+                        .WithMany()
+                        .HasForeignKey("GameCharacterId");
+
                     b.HasOne("DataBase.DbEntity.GameRoom", "GameRoom")
                         .WithMany("GameAccountGameRoom")
                         .HasForeignKey("GameRoomId")
@@ -140,6 +152,8 @@ namespace DataBase.Migrations
                         .IsRequired();
 
                     b.Navigation("GameAccount");
+
+                    b.Navigation("GameCharacter");
 
                     b.Navigation("GameRoom");
                 });

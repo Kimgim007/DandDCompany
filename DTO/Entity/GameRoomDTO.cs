@@ -22,7 +22,11 @@ namespace DTO.Entity
 
         public string AdminRoomEmailDTO { get; set; }
 
-        public List<GameAccountDTO> AccountDTOs { get; set; } = new List<GameAccountDTO>();
-        public List<GameAccountGameRoomDTO> AccountGameRooms { get; set;}= new List<GameAccountGameRoomDTO>();
+        public List<GameAccountDTO> AccountDTOsAnswerTrue { get; set; } = new List<GameAccountDTO>();
+        public List<GameAccountDTO> AccountDTOsAnswerFalse { get; set; } = new List<GameAccountDTO>();
+
+        public List<GameAccountGameRoomDTO> AccountGameRooms { get; set; } = new List<GameAccountGameRoomDTO>();
+
+      
     }
 }

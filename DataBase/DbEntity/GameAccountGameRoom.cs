@@ -18,6 +18,8 @@ namespace DataBase.DbEntity
         public Guid GameRoomId { get; set; }
         public GameRoom GameRoom { get; set; }
 
+        public Guid GameCharacterId { get; set; }
+        public GameCharacter GameCharacter { get; set; }
         public bool Pass { get; set; } 
     }
 }

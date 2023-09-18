@@ -38,9 +38,9 @@ namespace DTO.Service
             throw new NotImplementedException();
         }
 
-        public Task Update(GameCharacterDTO playerDTO)
+        public async Task Update(GameCharacterDTO gameCharacterDTO)
         {
-            throw new NotImplementedException();
+            await _gameCharacter.Update(Mapnig.Maping.map(gameCharacterDTO));
         }
     }
 }

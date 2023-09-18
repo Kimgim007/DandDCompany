@@ -22,18 +22,18 @@ namespace DandDCompany.Controllers
         {
             return View();
         }
-      
+
         [HttpGet]
-        public async Task<IActionResult> AddGameCharacter(Guid AccountId,Guid Id)
+        public async Task<IActionResult> AddGameCharacter(Guid AccountId, Guid Id)
         {
 
             GameCharacterViewModel gameCharacterViewModel;
-            if(Id == Guid.Empty)
+            if (Id == Guid.Empty)
             {
                 var gameCalsses = await _gameClassDTOService.GetAll();
                 gameCharacterViewModel = new GameCharacterViewModel()
                 {
-                    gameClassDTOs= gameCalsses,
+                    gameClassDTOs = gameCalsses,
                     GmaeAccountId = AccountId,
                 };
             }
@@ -42,16 +42,21 @@ namespace DandDCompany.Controllers
                 var GameCahr = await _gameCharacterDTOService.Get(Id);
                 gameCharacterViewModel = new GameCharacterViewModel()
                 {
-                 
+
                 };
             }
-           
+
             return View(gameCharacterViewModel);
         }
         [HttpPost]
-        public async Task<IActionResult> AddGameCharacter(GameCharacterViewModel gameCharacterViewModel,Guid GameClassId)
-        {         
-            GameCharacterDTO gameCharacterDTO = new GameCharacterDTO(gameCharacterViewModel.GameCharacterId, gameCharacterViewModel.GameCharacterName, new GameClassDTO() { GameClassDTOId = GameClassId},new GameAccountDTO() { GameAccountDTOId=gameCharacterViewModel.GmaeAccountId});
+        public async Task<IActionResult> AddGameCharacter(GameCharacterViewModel gameCharacterViewModel, Guid GameClassId)
+        {
+            GameCharacterDTO gameCharacterDTO = new GameCharacterDTO
+                (gameCharacterViewModel.GameCharacterId,
+                gameCharacterViewModel.GameCharacterName,
+                gameCharacterViewModel.DescriptionGameChar,
+                new GameClassDTO() { GameClassDTOId = GameClassId },
+               new GameAccountDTO() { GameAccountDTOId = gameCharacterViewModel.GmaeAccountId });
 
             var gameCarSotr = gameCharacterDTO;
 
@@ -63,7 +68,7 @@ namespace DandDCompany.Controllers
         {
             var GameChar = await _gameCharacterDTOService.Get(Id);
             var GameClass = await _gameClassDTOService.Get(GameChar.GameClassDTO.GameClassDTOId);
-            GameChar.GameClassDTO= GameClass;
+            GameChar.GameClassDTO = GameClass;
             return View(GameChar);
         }
     }

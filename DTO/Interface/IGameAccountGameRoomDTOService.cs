@@ -12,9 +12,11 @@ namespace DTO.Interface
 
         Task Add(GameAccountGameRoomDTO gameAccountGameRoomDTO);
         Task<GameAccountGameRoomDTO> Get(Guid id);
+        Task<GameAccountGameRoomDTO> GetFromAcoountIdandRoomId(Guid gameAccountId, Guid gameRoomId);
         Task<List<GameAccountGameRoomDTO>> GetAll();
         Task Update(GameAccountGameRoomDTO gameAccountGameRoomDTO);
         Task Remove(Guid id);
+        Task RemoveByAccountIdRoomId(Guid gameAccountId, Guid gameRoomId);
 
     }
 }

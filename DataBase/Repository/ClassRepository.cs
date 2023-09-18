@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace DataBase.Repository
 {
-    public class GameClassRepository : IRepository<GameClass>
+    public class ClassRepository : IRepository<GameClass>
     {
         private DataContext _dataContext;
 
-        public GameClassRepository(DataContext dataContext)
+        public ClassRepository(DataContext dataContext)
         {
            this._dataContext = dataContext;
         }
@@ -35,8 +35,6 @@ namespace DataBase.Repository
         {
             var gameClasss = await _dataContext.GameClasss.ToListAsync();
             return gameClasss;
-
-
         }
 
         public Task Remove(Guid id)

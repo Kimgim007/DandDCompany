@@ -12,8 +12,8 @@ namespace DTO.Service
 {
     public class GameAccountDTOService:IGameAccountDTOService
     {
-        private GameAccountRepository _gameAccountRepository;
-        public GameAccountDTOService(GameAccountRepository gameAccountRepository)
+        private AccountRepository _gameAccountRepository;
+        public GameAccountDTOService(AccountRepository gameAccountRepository)
         {
             this._gameAccountRepository = gameAccountRepository;   
         }

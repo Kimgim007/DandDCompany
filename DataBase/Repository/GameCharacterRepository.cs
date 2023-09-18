@@ -39,9 +39,17 @@ namespace DataBase.Repository
             throw new NotImplementedException();
         }
 
-        public Task Update(GameCharacter obj)
+        public async Task Update(GameCharacter gameCharacter)
         {
-            throw new NotImplementedException();
+            var gameCharacterFromDataBase = await _dataContext.GameCharacters.FirstOrDefaultAsync(q=>q.GameCharacterId == gameCharacter.GameCharacterId);
+            if (gameCharacterFromDataBase != null)
+            {
+                gameCharacterFromDataBase.GameCharacterName = gameCharacter.GameCharacterName;
+                gameCharacterFromDataBase.DiscriptionGameChar = gameCharacter.DiscriptionGameChar;
+                gameCharacterFromDataBase.GameClass = gameCharacter.GameClass;
+                _dataContext.SaveChanges();
+            }
+            
         }
     }
 }

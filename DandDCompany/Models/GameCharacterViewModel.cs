@@ -13,8 +13,11 @@ namespace DandDCompany.Models
         public Guid GameCharacterId { get; set; }
         public string GameCharacterName { get; set; }
 
-        public Guid GameClassViewModelId { get; set; }
-        public GameClassViewModel GameClassViewModel { get; set; }
+        public string DescriptionGameChar { get; set; }
+
+        //public Guid GameClassViewModelId { get; set; }
+        //public GameClassViewModel GameClassViewModel { get; set; }
+
         public List<GameClassDTO> gameClassDTOs { get; set; }
 
         public Guid GmaeAccountId { get; set; }

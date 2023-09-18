@@ -17,7 +17,7 @@ namespace DataBase.MyDbContext
         public DbSet<GameCharacter> GameCharacters { get; set; }
         public DbSet<GameRoom> GameRooms { get; set; }
         public DbSet<GameClass> GameClasss { get; set; }  
-        public DbSet<GameAccount> GameAccounts { get; set; }
+        public DbSet<Account> Accounts { get; set; }
         public DbSet<GameAccountGameRoom> GameAccountGameRooms { get; set; }
       
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -54,9 +54,9 @@ namespace DataBase.MyDbContext
                 entityTypeBuilder.HasMany(q=>q.GameCharacters).WithOne(q=>q.GameClass).HasForeignKey(x=>x.GameClassId);
             });
 
-            modelBuilder.Entity<GameAccount>(entityTypeBuilder =>
+            modelBuilder.Entity<Account>(entityTypeBuilder =>
             {
-                entityTypeBuilder.HasKey(x => x.GameAccountId);
+                entityTypeBuilder.HasKey(x => x.AccountId);
                 entityTypeBuilder.HasIndex(x => x.Email).IsUnique();
               
             });

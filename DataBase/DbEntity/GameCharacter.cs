@@ -16,7 +16,7 @@ namespace DataBase.DbEntity
         public  GameClass GameClass { get; set; }
 
         public Guid GameAccountId { get; set; }
-        public GameAccount GameAccount { get; set; }
+        public Account GameAccount { get; set; }
       
     }
 }
