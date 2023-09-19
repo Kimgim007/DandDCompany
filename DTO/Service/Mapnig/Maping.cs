@@ -11,30 +11,30 @@ namespace DTO.Service.Mapnig
     public static class Maping
     {
 
-        public static GameCharacter map(GameCharacterDTO gameCharacterDTO)
+        public static Character map(CharacterDTO characterDTO)
         {
-            return new GameCharacter()
+            return new Character()
             {
-                GameCharacterId = gameCharacterDTO.GameCharacterId,
-                GameCharacterName = gameCharacterDTO.GameCharacterName,
-                DiscriptionGameChar = gameCharacterDTO.DescriptionGameChar,
+                CharacterId = characterDTO.CharacterId,
+                CharacterName = characterDTO.CharacterName,
+                DiscriptionChar = characterDTO.DescriptionChar,
 
-                GameClassId = gameCharacterDTO.GameClassDTO.GameClassDTOId,
-                GameAccountId = gameCharacterDTO.gameAccountDTO.GameAccountDTOId
+                GameClassId = characterDTO.GameClassDTO.GameClassDTOId,
+                AccountId = characterDTO.AccountDTO.AccountDTOId
             };
         }
-        public static GameCharacterDTO map(GameCharacter gameCharacter)
+        public static CharacterDTO map(Character character)
         {
-            GameClassDTO gameClassDTO = new GameClassDTO() { GameClassDTOId = gameCharacter.GameClassId };
-            GameAccountDTO gameAccountDTO = new GameAccountDTO() { GameAccountDTOId = gameCharacter.GameAccountId };
-            return new GameCharacterDTO()
+            GameClassDTO gameClassDTO = new GameClassDTO() { GameClassDTOId = character.GameClassId };
+            AccountDTO gameAccountDTO = new AccountDTO() { AccountDTOId = character.AccountId,Email = character.Account.Email };
+            return new CharacterDTO()
             {
-                GameCharacterId = gameCharacter.GameCharacterId,
-                GameCharacterName = gameCharacter.GameCharacterName,
-                DescriptionGameChar = gameCharacter.DiscriptionGameChar,
+                CharacterId = character.CharacterId,
+                CharacterName = character.CharacterName,
+                DescriptionChar = character.DiscriptionChar,
 
                 GameClassDTO = gameClassDTO,
-                gameAccountDTO = gameAccountDTO
+                AccountDTO = gameAccountDTO
             };
         }
 
@@ -61,94 +61,90 @@ namespace DTO.Service.Mapnig
 
             };
         }
-        public static GameRoom map(GameRoomDTO groupDTO)
+        public static Room map(RoomDTO roomDTO)
         {
-
-            return new GameRoom()
+            
+            return new Room()
             {
-                GameRoomId = groupDTO.GameRoomId,
-                GameRoomName = groupDTO.GameRoomName,
+                RoomId = roomDTO.RoomId,
+                RoomName = roomDTO.RoomName,
 
-                AdminRoomEmail = groupDTO.AdminRoomEmailDTO
+                AdminRoomEmail = roomDTO.AdminRoomEmailDTO
 
 
             };
         }
-        public static GameRoomDTO map(GameRoom gameRoom)
+        public static RoomDTO map(Room room)
         {
-            List<GameAccountGameRoomDTO> gameAccountGameRoomDTO = new List<GameAccountGameRoomDTO>();
-            gameAccountGameRoomDTO =  gameRoom.GameAccountGameRoom.Select(q => map(q)).ToList();
+            List<CharacterRoomDTO> accountRoomDTO = new List<CharacterRoomDTO>();
+            accountRoomDTO =  room.AccountRooms.Select(q => map(q)).ToList();
 
-            return new GameRoomDTO()
+            return new RoomDTO()
             {
-                GameRoomId = gameRoom.GameRoomId,
-                GameRoomName = gameRoom.GameRoomName,
+                RoomId = room.RoomId,
+                RoomName = room.RoomName,
 
-                AdminRoomEmailDTO = gameRoom.AdminRoomEmail,
+                AdminRoomEmailDTO = room.AdminRoomEmail,
 
-                AccountGameRooms = gameAccountGameRoomDTO
+                AccountRoomsDTO = accountRoomDTO
 
             };
         }
 
-        public static Account map(GameAccountDTO gameAccountDTO)
+        public static Account map(AccountDTO AccountDTO)
         {
             return new Account()
             {
-                AccountId = gameAccountDTO.GameAccountDTOId,
-                Email = gameAccountDTO.Email,
+                AccountId = AccountDTO.AccountDTOId,
+                Email = AccountDTO.Email,
             };
         }
 
-        public static GameAccountDTO map(Account gameAccount)
+        public static AccountDTO map(Account Account)
         {
-            List<GameCharacterDTO> list = new List<GameCharacterDTO>();
+            List<CharacterDTO> list = new List<CharacterDTO>();
           
-            list = gameAccount.gameCharacters.Select(q => map(q)).ToList();
+            list = Account.Characters.Select(q => map(q)).ToList();
 
-            return new GameAccountDTO()
+            return new AccountDTO()
             {
-                GameAccountDTOId = gameAccount.AccountId,
-                Email = gameAccount.Email,
+                AccountDTOId = Account.AccountId,
+                Email = Account.Email,
 
-                gameCharacterDTOs = list
+                CharacterDTOs = list
 
 
             };
         }
 
 
-        public static GameAccountGameRoom map(GameAccountGameRoomDTO gameAccountGameRoomDTO)
+        public static CharacterRoom map(CharacterRoomDTO characterRoomDTO)
         {
-            return new GameAccountGameRoom()
+            return new CharacterRoom()
             {
+                CharacterRoomId = characterRoomDTO.CharacterRoomDTOId,
 
-                GameAccountId = gameAccountGameRoomDTO.GameAccountDTO.GameAccountDTOId,
-                GameRoomId = gameAccountGameRoomDTO.GameRoomDTO.GameRoomId,
-                GameCharacterId= gameAccountGameRoomDTO.GameCharacter.GameCharacterId,
-                Pass = gameAccountGameRoomDTO.PassDTO
-
-                
+                CharacterId = characterRoomDTO.CharacterDTO.CharacterId,
+                RoomId = characterRoomDTO.RoomDTO.RoomId,
+             
+                Pass = characterRoomDTO.PassDTO           
             };
         }
 
-        public static GameAccountGameRoomDTO map(GameAccountGameRoom gameAccountGameRoom)
+        public static CharacterRoomDTO map(CharacterRoom characterRoom)
         {
-            GameAccountDTO gameAccountDTO = new GameAccountDTO() { GameAccountDTOId = gameAccountGameRoom.GameAccountId };
-            GameRoomDTO gameRoomDTO = new GameRoomDTO() { GameRoomId = gameAccountGameRoom.GameRoomId };
-            GameCharacterDTO gameCharacterDTO = new GameCharacterDTO() {GameCharacterId = gameAccountGameRoom.GameCharacterId };
+           
+            RoomDTO gameRoomDTO = new RoomDTO() { RoomId = characterRoom.RoomId };
+            CharacterDTO gameCharacterDTO = new CharacterDTO() { CharacterId = characterRoom.CharacterId };
 
-            return new GameAccountGameRoomDTO()
-            {
-               
+            return new CharacterRoomDTO()
+            {               
+                CharacterRoomDTOId = characterRoom.CharacterRoomId,
 
-                GameAccountDTO = gameAccountDTO,
-                GameRoomDTO = gameRoomDTO,
-                GameCharacter = gameCharacterDTO,
+                RoomDTO = gameRoomDTO,
+                CharacterDTO = gameCharacterDTO,
 
-                PassDTO = gameAccountGameRoom.Pass
-
-                
+                PassDTO = characterRoom.Pass   
             };
         }
 

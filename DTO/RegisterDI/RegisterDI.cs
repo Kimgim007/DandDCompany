@@ -21,11 +21,11 @@ namespace DTO.RegisterDI
         {
             DataBase.RegisterDI.RegisterDI.Register(service);
 
-            service.AddScoped<ClassRepository>();
-            service.AddScoped<GameRoomRepository>();
-            service.AddScoped<GameCharacterRepository>();
+            service.AddScoped<GameClassRepository>();
+            service.AddScoped<RoomRepository>();
+            service.AddScoped<CharacterRepository>();
             service.AddScoped<AccountRepository>();
-            service.AddScoped<GameAccountGameRoomRepository>();
+            service.AddScoped<CharacterRoomRepository>();
           
         }
     }

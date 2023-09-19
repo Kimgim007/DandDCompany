@@ -22,28 +22,28 @@ namespace DataBase.Repository
             this._dataContext = dataContext;
         }
 
-        public async Task Add(Account Account)
+        public async Task Add(Account account)
         {
-            _dataContext.Accounts.Add(Account);
+            _dataContext.Accounts.Add(account);
             await _dataContext.SaveChangesAsync();
         }
 
         public async Task<Account> GetGameAccountForEmail(string Email)
         {
-            var GameAccount = await _dataContext.Accounts.Include(q=>q.gameCharacters).FirstOrDefaultAsync(q => q.Email == Email);
-            return GameAccount;
+            var account = await _dataContext.Accounts.Include(q=>q.Characters).FirstOrDefaultAsync(q => q.Email == Email);
+            return account;
         }
 
         public async Task<Account> Get(Guid id)
         {
-           var gameAccount = await _dataContext.Accounts.FirstOrDefaultAsync(q=>q.AccountId == id);
-            return gameAccount;
+           var account = await _dataContext.Accounts.FirstOrDefaultAsync(q=>q.AccountId == id);
+            return account;
         }
 
         public async Task<Account> GetFromEmail(string Email)
         {
-            var GameAccount = await _dataContext.Accounts.FirstOrDefaultAsync(q=>q.Email == Email);
-            return GameAccount;
+            var account = await _dataContext.Accounts.FirstOrDefaultAsync(q=>q.Email == Email);
+            return account;
         }
 
         public Task<List<Account>> GetAll()

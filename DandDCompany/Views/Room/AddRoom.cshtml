@@ -1,0 +1,59 @@
+﻿@model RoomViewModel
+
+<head>
+
+    <style>
+
+
+
+
+    </style>
+</head>
+
+<body>
+    @if (@Model.GameRoomId == Guid.Empty)
+    {
+
+        <h1 style="text-align:center;font-weight: 400;">Add Game Room</h1>
+        <hr />
+
+    }
+    else
+    {
+        <h1 style="text-align:center; font-weight: 400;"> Update Room</h1>
+        <hr />
+    }
+    <div style="width:100%;">
+
+        <form action="/Room/AddRoom" method="post">
+            <div style="text-align:center">
+                <p>
+                    <div>
+                        <h5 style="font-weight: 400;">
+                            Enter Game Room Name:
+                        </h5>
+
+                    </div>
+
+                    @Html.TextBoxFor(x => x.GameRoomName)
+                    @Html.ValidationMessageFor(x=>x.GameRoomName)
+                </p>
+
+            </div>
+            @Html.HiddenFor(x=>x.GameRoomId)
+            @Html.HiddenFor(q=>q.AdminRoomEmail)
+            @if (@Model.GameRoomId == Guid.Empty)
+            {
+                <div style="text-align:center">
+                    <input type="submit" value="Add Game Room" />
+                </div>
+            }
+            else
+            {
+                <div style="text-align:center">
+                    <input type="submit" value="Update Game Room" />
+                </div>
+            }
+        </form>
+    </div>
+</body>

@@ -1,0 +1,124 @@
+﻿@using DTO.Entity
+@model RoomDTO
+
+<!doctype html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+
+
+    <style>
+        .top-buffer {
+            margin-top: 0px;
+        }
+
+
+        .background {
+            background-color: #6f42c4;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+
+    <div class="container background">
+
+        <div class="row gy-3" style="text-align:center">
+            <div class="col">
+                <div class="p-3 border bg-light">
+                    Информация про группу
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="row gy-5 top-buffer " style="text-align:center">
+
+
+            <div class="col-sm-4">
+
+                <div class="p-2 border bg-light ">
+                    Назвагие группы:@Model.RoomName
+                </div>
+                <div class="p-2 border bg-light ">
+                    Описание группы:
+                </div>
+                <div class="p-2 border bg-light ">
+                    Админ Группы : @Model.AdminRoomEmailDTO
+                </div>
+                <div class="p-2 border bg-light">
+                    Участники группы : @foreach (var item in Model.CharacterDTOAnswerTrue)
+                    {
+                    
+                        <div class="col-sm-4" style="text-align:center">
+                            @item.AccountDTO.Email;
+                            и его персонаж: @item.CharacterName
+                            @if (Model.AdminRoomEmailDTO != User.Identity.Name)
+                            {
+                                @Html.ActionLink("Обновить персонажа","AddCharacter","Character",new{@CharId =item.CharacterId})
+                            }
+
+                        
+                        </div>
+                    }
+
+                </div>
+                <div class="p-2 border bg-light">
+                    Участники ожидающие вступление в группу :
+                    @foreach (var item in Model.CharacterDTOAnswerFalse)
+                    {
+                        <div class="col-sm-4" style="text-align:center">
+                            @item.AccountDTO.Email;
+
+                            и его персонаж:  
+                                @item.CharacterName
+
+                                @if (Model.AdminRoomEmailDTO == User.Identity.Name)
+                                {
+                                    @Html.ActionLink("Принять в группу","PassAnswer","CharacterRoom",new{@gameRoomId = Model.RoomId,@gameCharId= item.CharacterId})
+                                }
+                            
+
+                           
+                            @if (@User.Identity.Name == @item.AccountDTO.Email)
+                            {
+                                @Html.ActionLink("Выйти из листа ожидания","RemoveByAccountIdRoomId","CharacterRoom",new{@CharId = item.CharacterId,RoomId = Model.RoomId})
+                            }
+                            @if (Model.AdminRoomEmailDTO == User.Identity.Name)
+                            {
+                                @Html.ActionLink(" Отказать на вступление в группу","RemoveByCharIdRoomId","CharacterRoom",new{@CharId = item.CharacterId,RoomId = Model.RoomId})
+                            }
+
+                        </div>
+
+                    }
+                </div>
+
+            </div>
+
+            <div class="row gy-3" style="text-align:center">
+                <div class="col">
+                    <div class="p-3 ">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        @if (Model.AdminRoomEmailDTO != User.Identity.Name)
+        {
+            @Html.ActionLink("JoinGameRoom","JoinTheRoom","Room",new{@Roomid = Model.RoomId,@AccountEmail = User.Identity.Name})
+
+        }
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -31,7 +31,7 @@ namespace DandDCompany.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<IdentityUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
-        private IGameAccountDTOService _gameAccountDTO;
+        private IAccountDTOService _gameAccountDTO;
 
         public RegisterModel(
             UserManager<IdentityUser> userManager,
@@ -39,7 +39,7 @@ namespace DandDCompany.Areas.Identity.Pages.Account
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
-            IGameAccountDTOService gameAccountDTO)
+            IAccountDTOService gameAccountDTO)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -142,7 +142,7 @@ namespace DandDCompany.Areas.Identity.Pages.Account
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
                         await _userManager.AddToRoleAsync(user, "User");
-                        GameAccountDTO gameAccountDTO = new GameAccountDTO(Input.Email);
+                        AccountDTO gameAccountDTO = new AccountDTO(Input.Email);
                         await _gameAccountDTO.Add(gameAccountDTO);
                         return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
                     }

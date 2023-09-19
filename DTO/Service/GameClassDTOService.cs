@@ -11,8 +11,8 @@ namespace DTO.Service
 {
     public class GameClassDTOService : IGameClassDTOService
     {
-        private ClassRepository _classRepository;
-        public GameClassDTOService(ClassRepository classRepository)
+        private GameClassRepository _classRepository;
+        public GameClassDTOService(GameClassRepository classRepository)
         {
             this._classRepository = classRepository;
         }

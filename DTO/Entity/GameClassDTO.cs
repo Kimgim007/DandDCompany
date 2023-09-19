@@ -10,17 +10,17 @@ namespace DTO.Entity
     public class GameClassDTO
     {
         public GameClassDTO() { }
-        public GameClassDTO(Guid gameClassId, string gameClassName, string? descriptionGameClass)
+        public GameClassDTO(Guid GameClassId, string GameClassName, string? DescriptionGameClass)
         {
-            this.GameClassDTOId = gameClassId;
-            this.GameClassName = gameClassName;
-            this.DescriptionGameClass = descriptionGameClass;
+            this.GameClassDTOId = GameClassId;
+            this.GameClassName = GameClassName;
+            this.DescriptionGameClass = DescriptionGameClass;
         }
 
         public Guid GameClassDTOId { get; set; }
         public string? GameClassName { get; set; }
         public string? DescriptionGameClass { get; set; }
 
-        public List<GameCharacterDTO>? GameCharacters { get; set; }=new List<GameCharacterDTO>();
+        public List<CharacterDTO>? CharactersDTO { get; set; }=new List<CharacterDTO>();
     }
 }

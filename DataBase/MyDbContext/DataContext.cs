@@ -14,11 +14,11 @@ namespace DataBase.MyDbContext
     {
         public DataContext() { }
 
-        public DbSet<GameCharacter> GameCharacters { get; set; }
-        public DbSet<GameRoom> GameRooms { get; set; }
+        public DbSet<Character> Characters { get; set; }
+        public DbSet<Room> Rooms { get; set; }
         public DbSet<GameClass> GameClasss { get; set; }  
         public DbSet<Account> Accounts { get; set; }
-        public DbSet<GameAccountGameRoom> GameAccountGameRooms { get; set; }
+        public DbSet<CharacterRoom> CharacterRooms { get; set; }
       
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -35,33 +35,24 @@ namespace DataBase.MyDbContext
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<GameCharacter>(entityTypeBuilder =>
-            {
-                entityTypeBuilder.HasKey(x => x.GameCharacterId);
-
-                entityTypeBuilder.HasOne(q=>q.GameClass).WithMany(q=>q.GameCharacters).HasForeignKey(q=>q.GameCharacterId);
+            modelBuilder.Entity<Character>(entityTypeBuilder =>
+            {             
+                entityTypeBuilder.HasOne(q=>q.GameClass).WithMany(q=>q.Characters).HasForeignKey(q=>q.CharacterId);
             });
 
-            modelBuilder.Entity<GameRoom>(entityTypeBuilder =>
-            {
-                entityTypeBuilder.HasKey(x => x.GameRoomId);
+            modelBuilder.Entity<Room>(entityTypeBuilder =>
+            {             
             });
 
             modelBuilder.Entity<GameClass>(entityTypeBuilder =>
-            {
-                //entityTypeBuilder.HasKey(x => x.GameClassId);
-
-                entityTypeBuilder.HasMany(q=>q.GameCharacters).WithOne(q=>q.GameClass).HasForeignKey(x=>x.GameClassId);
+            {               
+                entityTypeBuilder.HasMany(q=>q.Characters).WithOne(q=>q.GameClass).HasForeignKey(x=>x.GameClassId);
             });
 
             modelBuilder.Entity<Account>(entityTypeBuilder =>
-            {
-                entityTypeBuilder.HasKey(x => x.AccountId);
-                entityTypeBuilder.HasIndex(x => x.Email).IsUnique();
-              
-            });
-
-          
+            {            
+                entityTypeBuilder.HasIndex(x => x.Email).IsUnique();            
+            });          
         }
     }
 }

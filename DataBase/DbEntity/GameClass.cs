@@ -11,9 +11,9 @@ namespace DataBase.DbEntity
     {
         [Key]
         public Guid GameClassId { get; set; }
-        public string? GameClassName { get; set; }
+        public string GameClassName { get; set; }
         public string? DescriptionGameClass { get; set; }
 
-        public  List<GameCharacter> GameCharacters { get; set; }= new List<GameCharacter>();
+        public  List<Character> Characters { get; set; }= new List<Character>();
     }
 }

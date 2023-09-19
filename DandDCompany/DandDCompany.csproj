@@ -30,7 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\GameAccountGameRoom\" />
+    <Folder Include="Views\AccountRoom\" />
   </ItemGroup>
 
 </Project>
