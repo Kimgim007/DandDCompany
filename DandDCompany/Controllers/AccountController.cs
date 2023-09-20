@@ -16,9 +16,9 @@ namespace DandDCompany.Controllers
             return View();
         }
 
-        public async Task<IActionResult> GetAccount(string email)
+        public async Task<IActionResult> GetAccount(string MicrosoftAccountId)
         {
-            var Account = await _AccountDTOService.GetGameAccountForEmail(email);
+            var Account = await _AccountDTOService.GetAccountForMicrosoftAccountId(Guid.Parse(MicrosoftAccountId));
             var AccountSeeFromDubag = Account;
             return View(AccountSeeFromDubag);
         }

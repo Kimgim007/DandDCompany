@@ -1,4 +1,5 @@
 ﻿@using DTO.Entity
+@using System.Security.Claims;
 @model RoomDTO
 
 <!doctype html>
@@ -51,21 +52,24 @@
                     Описание группы:
                 </div>
                 <div class="p-2 border bg-light ">
-                    Админ Группы : @Model.AdminRoomEmailDTO
+
+                    Админ Группы: @Model.AdminAccountDTO.MicrosoftAccountName
+
+
                 </div>
                 <div class="p-2 border bg-light">
                     Участники группы : @foreach (var item in Model.CharacterDTOAnswerTrue)
                     {
-                    
+
                         <div class="col-sm-4" style="text-align:center">
-                            @item.AccountDTO.Email;
+                            @item.AccountDTO.MicrosoftAccountName
                             и его персонаж: @item.CharacterName
-                            @if (Model.AdminRoomEmailDTO != User.Identity.Name)
+                            @if (Model.AdminAccountDTO.MicrosoftAccountId == Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value))
                             {
                                 @Html.ActionLink("Обновить персонажа","AddCharacter","Character",new{@CharId =item.CharacterId})
                             }
 
-                        
+
                         </div>
                     }
 
@@ -75,26 +79,26 @@
                     @foreach (var item in Model.CharacterDTOAnswerFalse)
                     {
                         <div class="col-sm-4" style="text-align:center">
-                            @item.AccountDTO.Email;
 
-                            и его персонаж:  
-                                @item.CharacterName
+                            @item.AccountDTO.MicrosoftAccountName
+                            и его персонаж:
+                            @item.CharacterName
 
-                                @if (Model.AdminRoomEmailDTO == User.Identity.Name)
-                                {
-                                    @Html.ActionLink("Принять в группу","PassAnswer","CharacterRoom",new{@gameRoomId = Model.RoomId,@gameCharId= item.CharacterId})
-                                }
-                            
-
-                           
-                            @if (@User.Identity.Name == @item.AccountDTO.Email)
+                            @if ((Model.AdminAccountDTO.MicrosoftAccountId).ToString() == User.FindFirst(ClaimTypes.NameIdentifier).Value)
                             {
-                                @Html.ActionLink("Выйти из листа ожидания","RemoveByAccountIdRoomId","CharacterRoom",new{@CharId = item.CharacterId,RoomId = Model.RoomId})
+                                @Html.ActionLink("Принять в группу","PassAnswer","CharacterRoom",new{@gameRoomId = Model.RoomId,@gameCharId= item.CharacterId})
                             }
-                            @if (Model.AdminRoomEmailDTO == User.Identity.Name)
+
+                            @if ((Model.AdminAccountDTO.MicrosoftAccountId).ToString() == User.FindFirst(ClaimTypes.NameIdentifier).Value)
                             {
                                 @Html.ActionLink(" Отказать на вступление в группу","RemoveByCharIdRoomId","CharacterRoom",new{@CharId = item.CharacterId,RoomId = Model.RoomId})
                             }
+
+                            else
+                            {
+                                @Html.ActionLink("Выйти из листа ожидания","RemoveByAccountIdRoomId","CharacterRoom",new{@CharId = item.CharacterId,RoomId = Model.RoomId})
+                            }
+
 
                         </div>
 
@@ -111,11 +115,12 @@
 
             </div>
         </div>
-        @if (Model.AdminRoomEmailDTO != User.Identity.Name)
+        @if (Model.AdminAccountDTO.MicrosoftAccountId != Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value))
         {
-            @Html.ActionLink("JoinGameRoom","JoinTheRoom","Room",new{@Roomid = Model.RoomId,@AccountEmail = User.Identity.Name})
+            @Html.ActionLink("JoinGameRoom","JoinTheRoom","Room",new{@Roomid = Model.RoomId,@MicrosoftAccountId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value})
 
         }
+
 
     </div>
 

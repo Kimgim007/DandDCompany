@@ -48,11 +48,11 @@
 
                     <div class="p-2 border bg-light ">
                         <h4 class="title">@item.GameClassName </h4>
-                        @Html.ActionLink("Create GameClass","AddGameClass","GameClass",new{@id = item.GameClassDTOId})
-                      
+                        @if(User.IsInRole("Admin"))
+                        {
+                            @Html.ActionLink("Create GameClass","AddGameClass","GameClass",new{@id = item.GameClassDTOId})
+                        }                                       
                     </div>
-
-
                 </div>
             }
 

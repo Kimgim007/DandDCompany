@@ -28,9 +28,9 @@ namespace DataBase.Repository
             await _dataContext.SaveChangesAsync();
         }
 
-        public async Task<Account> GetGameAccountForEmail(string Email)
+        public async Task<Account> GetFromMicrosoftAccountId(Guid MicrosoftAccountId)
         {
-            var account = await _dataContext.Accounts.Include(q=>q.Characters).FirstOrDefaultAsync(q => q.Email == Email);
+            var account = await _dataContext.Accounts.Include(q=>q.Characters).FirstOrDefaultAsync(q => q.MicrosoftAccountId == MicrosoftAccountId);
             return account;
         }
 
@@ -40,11 +40,7 @@ namespace DataBase.Repository
             return account;
         }
 
-        public async Task<Account> GetFromEmail(string Email)
-        {
-            var account = await _dataContext.Accounts.FirstOrDefaultAsync(q=>q.Email == Email);
-            return account;
-        }
+       
 
         public Task<List<Account>> GetAll()
         {

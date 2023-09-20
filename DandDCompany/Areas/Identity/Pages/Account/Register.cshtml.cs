@@ -142,7 +142,7 @@ namespace DandDCompany.Areas.Identity.Pages.Account
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
                         await _userManager.AddToRoleAsync(user, "User");
-                        AccountDTO gameAccountDTO = new AccountDTO(Input.Email);
+                        AccountDTO gameAccountDTO = new AccountDTO(Guid.Parse(userId),Input.Email);
                         await _gameAccountDTO.Add(gameAccountDTO);
                         return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
                     }

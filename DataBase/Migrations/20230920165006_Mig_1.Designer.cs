@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataBase.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230918142254_Mig_1")]
+    [Migration("20230920165006_Mig_1")]
     partial class Mig_1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -30,14 +30,14 @@ namespace DataBase.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Email")
+                    b.Property<Guid>("MicrosoftAccountId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("MicrosoftAccountName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("AccountId");
-
-                    b.HasIndex("Email")
-                        .IsUnique();
 
                     b.ToTable("Accounts");
                 });
@@ -75,13 +75,13 @@ namespace DataBase.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("CharacterId")
+                    b.Property<Guid?>("CharacterId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("Pass")
                         .HasColumnType("bit");
 
-                    b.Property<Guid>("RoomId")
+                    b.Property<Guid?>("RoomId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("CharacterRoomId");
@@ -117,15 +117,16 @@ namespace DataBase.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("AdminRoomEmail")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("AccountId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("RoomName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("RoomId");
+
+                    b.HasIndex("AccountId");
 
                     b.ToTable("Rooms");
                 });
@@ -153,24 +154,33 @@ namespace DataBase.Migrations
                 {
                     b.HasOne("DataBase.DbEntity.Character", "Character")
                         .WithMany("CharacterRoom")
-                        .HasForeignKey("CharacterId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CharacterId");
 
                     b.HasOne("DataBase.DbEntity.Room", "Room")
-                        .WithMany("AccountRooms")
-                        .HasForeignKey("RoomId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("CharacterRooms")
+                        .HasForeignKey("RoomId");
 
                     b.Navigation("Character");
 
                     b.Navigation("Room");
                 });
 
+            modelBuilder.Entity("DataBase.DbEntity.Room", b =>
+                {
+                    b.HasOne("DataBase.DbEntity.Account", "Account")
+                        .WithMany("Rooms")
+                        .HasForeignKey("AccountId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Account");
+                });
+
             modelBuilder.Entity("DataBase.DbEntity.Account", b =>
                 {
                     b.Navigation("Characters");
+
+                    b.Navigation("Rooms");
                 });
 
             modelBuilder.Entity("DataBase.DbEntity.Character", b =>
@@ -185,7 +195,7 @@ namespace DataBase.Migrations
 
             modelBuilder.Entity("DataBase.DbEntity.Room", b =>
                 {
-                    b.Navigation("AccountRooms");
+                    b.Navigation("CharacterRooms");
                 });
 #pragma warning restore 612, 618
         }

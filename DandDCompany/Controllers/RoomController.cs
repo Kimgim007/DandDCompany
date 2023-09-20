@@ -32,49 +32,63 @@ namespace DandDCompany.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> AddRoom(string AdminRoomEmail)
+        public async Task<IActionResult> AddRoom(Guid AccountId)
         {
             RoomViewModel groupViewModel;
             groupViewModel = new RoomViewModel()
             {
-                AdminRoomEmail = AdminRoomEmail,
+                AccountId = AccountId,
             };
             return View(groupViewModel);
         }
         [HttpPost]
         public async Task<IActionResult> AddRoom(RoomViewModel groupViewModel)
         {
-            RoomDTO groupDTO = new RoomDTO(groupViewModel.GameRoomId, groupViewModel.GameRoomName, groupViewModel.AdminRoomEmail);
+            AccountDTO accountDTO = new AccountDTO() { AccountDTOId =groupViewModel.AccountId};
+            RoomDTO groupDTO = new RoomDTO(groupViewModel.GameRoomId, accountDTO, groupViewModel.GameRoomName);
             await _roomDTOService.Add(groupDTO);
-            return RedirectToAction("AddRoom", "Room");
+            return RedirectToAction("GetAllRoom", "Room");
         }
 
         public async Task<IActionResult> GetRoom(Guid id)
         {
-            var charRoom = await _roomDTOService.Get(id);
+            var room = await _roomDTOService.Get(id);
+
+            var Account = await _accountDTOService.Get(room.AdminAccountDTO.AccountDTOId);
+            room.AdminAccountDTO.MicrosoftAccountId = Account.MicrosoftAccountId;
+            room.AdminAccountDTO.MicrosoftAccountName = Account.MicrosoftAccountName;
 
             List<CharacterDTO> gameAccountsDTOTrue = new List<CharacterDTO>();
             List<CharacterDTO> gameAccountsDTOFalse = new List<CharacterDTO>();
 
-            foreach (var item in charRoom.AccountRoomsDTO)
+            foreach (var item in room.AccountRoomsDTO)
             {
                 if (item.PassDTO == true)
                 {
-                    gameAccountsDTOTrue.Add(await _characterDTOService.Get(item.CharacterDTO.CharacterId));
+                    var character = await _characterDTOService.Get(item.CharacterDTO.CharacterId);
+                  
+                    Account = await _accountDTOService.Get(character.AccountDTO.AccountDTOId);
+                    character.AccountDTO.MicrosoftAccountName = Account.MicrosoftAccountName;
+
+                    gameAccountsDTOTrue.Add(character);
                 }
                 else
                 {
-                    List<CharacterDTO> gameCharDTO = new List<CharacterDTO>();
 
-                    gameAccountsDTOFalse.Add(await _characterDTOService.Get(item.CharacterDTO.CharacterId));
+                    var character = await _characterDTOService.Get(item.CharacterDTO.CharacterId);
+
+                    Account = await _accountDTOService.Get(character.AccountDTO.AccountDTOId);
+                    character.AccountDTO.MicrosoftAccountName = Account.MicrosoftAccountName;
+
+                    gameAccountsDTOFalse.Add(character);
                 }
 
             }
 
-            charRoom.CharacterDTOAnswerTrue = gameAccountsDTOTrue;
-            charRoom.CharacterDTOAnswerFalse = gameAccountsDTOFalse;
+            room.CharacterDTOAnswerTrue = gameAccountsDTOTrue;
+            room.CharacterDTOAnswerFalse = gameAccountsDTOFalse;
 
-            return View(charRoom);
+            return View(room);
         }
 
         public async Task<IActionResult> GetAllRoom()
@@ -84,9 +98,9 @@ namespace DandDCompany.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> JoinTheRoom(Guid Roomid,string AccountEmail)
+        public async Task<IActionResult> JoinTheRoom(Guid Roomid,string MicrosoftAccountId)
         {
-            var account = await _accountDTOService.GetGameAccountForEmail(AccountEmail);
+            var account = await _accountDTOService.GetAccountForMicrosoftAccountId(Guid.Parse(MicrosoftAccountId));
 
             RoomDTO RoomDTO = new RoomDTO() { RoomId = Roomid };
 

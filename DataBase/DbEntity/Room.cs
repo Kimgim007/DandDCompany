@@ -9,13 +9,14 @@ namespace DataBase.DbEntity
 {
     public class Room
     {
-        [Key]            
+        [Key]               
         public Guid RoomId { get; set; }
         public string RoomName { get; set; }
 
-        public string AdminRoomEmail { get; set; }
+        public Guid AccountId { get; set; }
+        public Account Account { get; set; }
 
-        public List<CharacterRoom> AccountRooms { get; set; } = new List<CharacterRoom>();
+        public List<CharacterRoom> CharacterRooms { get; set; } = new List<CharacterRoom>();
 
     }
 }

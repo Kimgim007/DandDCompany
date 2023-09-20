@@ -26,7 +26,7 @@ namespace DTO.Service.Mapnig
         public static CharacterDTO map(Character character)
         {
             GameClassDTO gameClassDTO = new GameClassDTO() { GameClassDTOId = character.GameClassId };
-            AccountDTO gameAccountDTO = new AccountDTO() { AccountDTOId = character.AccountId,Email = character.Account.Email };
+            AccountDTO gameAccountDTO = new AccountDTO() { AccountDTOId = character.AccountId,MicrosoftAccountId = character.Account.MicrosoftAccountId };
             return new CharacterDTO()
             {
                 CharacterId = character.CharacterId,
@@ -68,25 +68,31 @@ namespace DTO.Service.Mapnig
             {
                 RoomId = roomDTO.RoomId,
                 RoomName = roomDTO.RoomName,
-
-                AdminRoomEmail = roomDTO.AdminRoomEmailDTO
+                AccountId = roomDTO.AdminAccountDTO.AccountDTOId
 
 
             };
         }
         public static RoomDTO map(Room room)
         {
-            List<CharacterRoomDTO> accountRoomDTO = new List<CharacterRoomDTO>();
-            accountRoomDTO =  room.AccountRooms.Select(q => map(q)).ToList();
+            List<CharacterRoomDTO> CharacterRoomDTO = new List<CharacterRoomDTO>();
+            CharacterRoomDTO =  room.CharacterRooms.Select(q => map(q)).ToList();
+
+            AccountDTO accountDTO = new AccountDTO()
+            {
+                AccountDTOId = room.AccountId,
+            
+              
+            };
 
             return new RoomDTO()
             {
                 RoomId = room.RoomId,
                 RoomName = room.RoomName,
 
-                AdminRoomEmailDTO = room.AdminRoomEmail,
+                AdminAccountDTO = accountDTO,
 
-                AccountRoomsDTO = accountRoomDTO
+                AccountRoomsDTO = CharacterRoomDTO
 
             };
         }
@@ -96,7 +102,8 @@ namespace DTO.Service.Mapnig
             return new Account()
             {
                 AccountId = AccountDTO.AccountDTOId,
-                Email = AccountDTO.Email,
+                MicrosoftAccountId = AccountDTO.MicrosoftAccountId,
+                MicrosoftAccountName= AccountDTO.MicrosoftAccountName,
             };
         }
 
@@ -109,7 +116,9 @@ namespace DTO.Service.Mapnig
             return new AccountDTO()
             {
                 AccountDTOId = Account.AccountId,
-                Email = Account.Email,
+                MicrosoftAccountId = Account.MicrosoftAccountId,
+
+                MicrosoftAccountName= Account.MicrosoftAccountName,
 
                 CharacterDTOs = list
 
@@ -134,8 +143,8 @@ namespace DTO.Service.Mapnig
         public static CharacterRoomDTO map(CharacterRoom characterRoom)
         {
            
-            RoomDTO gameRoomDTO = new RoomDTO() { RoomId = characterRoom.RoomId };
-            CharacterDTO gameCharacterDTO = new CharacterDTO() { CharacterId = characterRoom.CharacterId };
+            RoomDTO gameRoomDTO = new RoomDTO() { RoomId = (Guid)characterRoom.RoomId };
+            CharacterDTO gameCharacterDTO = new CharacterDTO() { CharacterId = (Guid)characterRoom.CharacterId };
 
             return new CharacterRoomDTO()
             {               

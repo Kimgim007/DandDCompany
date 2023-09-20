@@ -11,9 +11,11 @@ namespace DataBase.DbEntity
     {
         [Key]
         public Guid AccountId { get; set; }
+        public Guid MicrosoftAccountId { get; set; }
 
-        public string Email { get; set; }
+        public string MicrosoftAccountName { get; set; }
 
+        public List<Room> Rooms { get; set; }= new List<Room>();
         public List<Character> Characters { get; set; }= new List<Character>();
      
     }

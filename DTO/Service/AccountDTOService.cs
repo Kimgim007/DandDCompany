@@ -23,37 +23,26 @@ namespace DTO.Service
            await _accountRepository.Add(Mapnig.Maping.map(AccountDTO));
         }
 
-        public async Task<AccountDTO> GetGameAccountForEmail(string Email)
+        public async Task<AccountDTO> GetAccountForMicrosoftAccountId(Guid MicrosoftAccountId)
         {
-            var Account = await _accountRepository.GetGameAccountForEmail(Email);
+            var Account = await _accountRepository.GetFromMicrosoftAccountId(MicrosoftAccountId);
             var AccountSort = Mapnig.Maping.map(Account);
             return AccountSort;
         }
-
         public async Task<AccountDTO> Get(Guid id)
         {
             var Account = await _accountRepository.Get(id);
             var AccountSort = Mapnig.Maping.map(Account);
             return AccountSort;
         }
-
-        public async Task<AccountDTO> GetFromEmail(string Email)
-        {
-            var Account = await _accountRepository.GetFromEmail(Email);
-            var AccountSort = Mapnig.Maping.map(Account);
-            return AccountSort;
-
-        }
         public Task<List<AccountDTO>> GetAll()
         {
             throw new NotImplementedException();
         }
-
         public Task Remove(Guid id)
         {
             throw new NotImplementedException();
         }
-
         public Task Update(AccountDTO AccountDTO)
         {
             throw new NotImplementedException();

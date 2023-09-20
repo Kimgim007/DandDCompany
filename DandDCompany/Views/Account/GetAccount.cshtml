@@ -33,7 +33,7 @@
         <div class="row gy-3" style="text-align:center">
             <div class="col">
                 <div class="p-3 border bg-light">
-                   Добро пожаловать на ваш игровой аккаунт 
+                    Добро пожаловать на ваш игровой аккаунт
                 </div>
 
             </div>
@@ -56,21 +56,20 @@
 
             </div>
             }
-                <div class="col-sm-4">
+            <div class="col-sm-4">
 
-                    <div class="p-2 border bg-light ">
-                        <h4 class="title">ваш Email @Model.Email </h4>
-
-                    </div>
-
-                    <div>
+                <div class="p-2 border bg-light ">
                     <li class="nav-item">
-                  
+
                         @Html.ActionLink("CreateGameChar","AddCharacter","Character",new{@AccountId = Model.AccountDTOId})
                     </li>
-                    </div>
+                    <li class="nav-item">
+
+                        @Html.ActionLink("Add Game Room","AddRoom","Room",new{@AccountId = Model.AccountDTOId},new{style ="text-decoration:none;font-weight: 400; color: black;"})
+                    </li>
                 </div>
-            
+            </div>
+
 
             <div class="row gy-3" style="text-align:center">
                 <div class="col">

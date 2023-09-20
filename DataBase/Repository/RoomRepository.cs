@@ -28,7 +28,7 @@ namespace DataBase.Repository
 
         public async Task<Room> Get(Guid id)
         {
-            var room = await _dataContext.Rooms.Include(q=>q.AccountRooms).FirstOrDefaultAsync(q => q.RoomId == id);
+            var room = await _dataContext.Rooms.Include(q=>q.CharacterRooms).Include(q=>q.Account).FirstOrDefaultAsync(q => q.RoomId == id);
             return room;
         }
 

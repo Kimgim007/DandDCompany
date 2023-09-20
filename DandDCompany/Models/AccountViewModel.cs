@@ -5,7 +5,7 @@ namespace DandDCompany.Models
     {
         public AccountViewModel() { }
         public Guid AccountId { get; set; }
-        public string Email { get; set; }
+        public Guid MicrosoftAccountId { get; set; }
 
         public List<CharacterDTO> gameCharacterDTOs { get; set; }
     }

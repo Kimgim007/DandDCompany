@@ -9,18 +9,18 @@ namespace DTO.Entity
     public class RoomDTO
     {
         public RoomDTO() { }
-        public RoomDTO(Guid RoomId, string RoomName, string AdminRoomEmailDTO)
+        public RoomDTO(Guid RoomId,AccountDTO AdminAccountDTO, string RoomName)
         {
-            this.RoomId = RoomId;
+            this.RoomId = RoomId;            
+            this.AdminAccountDTO = AdminAccountDTO;
             this.RoomName = RoomName;
-            this.AdminRoomEmailDTO = AdminRoomEmailDTO;
         }
 
    
         public Guid RoomId { get; set; }
         public string RoomName { get; set; }
 
-        public string AdminRoomEmailDTO { get; set; }
+        public AccountDTO AdminAccountDTO { get; set; }
 
         public List<CharacterDTO> CharacterDTOAnswerTrue { get; set; } = new List<CharacterDTO>();
         public List<CharacterDTO> CharacterDTOAnswerFalse { get; set; } = new List<CharacterDTO>();

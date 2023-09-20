@@ -42,6 +42,7 @@ namespace DataBase.MyDbContext
 
             modelBuilder.Entity<Room>(entityTypeBuilder =>
             {             
+             
             });
 
             modelBuilder.Entity<GameClass>(entityTypeBuilder =>
@@ -50,8 +51,8 @@ namespace DataBase.MyDbContext
             });
 
             modelBuilder.Entity<Account>(entityTypeBuilder =>
-            {            
-                entityTypeBuilder.HasIndex(x => x.Email).IsUnique();            
+            {
+              
             });          
         }
     }

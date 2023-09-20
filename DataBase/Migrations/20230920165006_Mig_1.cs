@@ -14,7 +14,8 @@ namespace DataBase.Migrations
                 columns: table => new
                 {
                     AccountId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    MicrosoftAccountId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    MicrosoftAccountName = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -40,11 +41,17 @@ namespace DataBase.Migrations
                 {
                     RoomId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     RoomName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    AdminRoomEmail = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    AccountId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Rooms", x => x.RoomId);
+                    table.ForeignKey(
+                        name: "FK_Rooms_Accounts_AccountId",
+                        column: x => x.AccountId,
+                        principalTable: "Accounts",
+                        principalColumn: "AccountId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -79,8 +86,8 @@ namespace DataBase.Migrations
                 columns: table => new
                 {
                     CharacterRoomId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CharacterId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    RoomId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CharacterId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    RoomId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     Pass = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -90,21 +97,13 @@ namespace DataBase.Migrations
                         name: "FK_CharacterRooms_Characters_CharacterId",
                         column: x => x.CharacterId,
                         principalTable: "Characters",
-                        principalColumn: "CharacterId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "CharacterId");
                     table.ForeignKey(
                         name: "FK_CharacterRooms_Rooms_RoomId",
                         column: x => x.RoomId,
                         principalTable: "Rooms",
-                        principalColumn: "RoomId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "RoomId");
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Accounts_Email",
-                table: "Accounts",
-                column: "Email",
-                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_CharacterRooms_CharacterId",
@@ -125,6 +124,11 @@ namespace DataBase.Migrations
                 name: "IX_Characters_GameClassId",
                 table: "Characters",
                 column: "GameClassId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Rooms_AccountId",
+                table: "Rooms",
+                column: "AccountId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -139,10 +143,10 @@ namespace DataBase.Migrations
                 name: "Rooms");
 
             migrationBuilder.DropTable(
-                name: "Accounts");
+                name: "GameClasss");
 
             migrationBuilder.DropTable(
-                name: "GameClasss");
+                name: "Accounts");
         }
     }
 }
