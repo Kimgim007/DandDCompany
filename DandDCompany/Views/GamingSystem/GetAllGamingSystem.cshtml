@@ -1,5 +1,6 @@
 ﻿@using DTO.Entity
-@model List<GameClassDTO>
+@model List<GamingSystemDTO>
+
 
 <!doctype html>
 <html lang="en">
@@ -32,7 +33,7 @@
         <div class="row gy-3" style="text-align:center">
             <div class="col">
                 <div class="p-3 border bg-light">
-                    Игровые классы
+                    Игровые системы
                 </div>
 
             </div>
@@ -47,17 +48,9 @@
                 <div class="col-sm-4">
 
                     <div class="p-2 border bg-light ">
-                        <h4 class="title">@item.GameClassName </h4>
-                        <h7 class="title">Игровая система - @item.GamingSystemDTO.GamingSystemDTOName </h7>
-
+                        <h4 class="title">@item.GamingSystemDTOName </h4>
+                   
                     </div>
-                    <div>
-                        @if (User.IsInRole("Admin"))
-                        {
-                            @Html.ActionLink("Create GameClass","AddGameClass","GameClass",new{@id = item.GameClassDTOId})
-                        }
-                    </div>
-
                 </div>
             }
 

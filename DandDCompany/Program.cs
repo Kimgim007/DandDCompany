@@ -30,6 +30,7 @@ namespace DandDCompany
             builder.Services.AddScoped<ICharacterDTOService, CharacterDTOService>();
             builder.Services.AddScoped<IAccountDTOService, AccountDTOService>();
             builder.Services.AddScoped<ICharacterRoomDTOService, CharacterRoomDTOService>();
+            builder.Services.AddScoped<IGamingSystemDTOService,GamingSystemDTOService>();
 
             var app = builder.Build();
 

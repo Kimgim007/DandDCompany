@@ -49,6 +49,9 @@
                     Назвагие группы:@Model.RoomName
                 </div>
                 <div class="p-2 border bg-light ">
+                    Игровая система: @Model.GamingSystemDTO.GamingSystemDTOName
+                </div>
+                <div class="p-2 border bg-light ">
                     Описание группы:
                 </div>
                 <div class="p-2 border bg-light ">
@@ -117,7 +120,7 @@
         </div>
         @if (Model.AdminAccountDTO.MicrosoftAccountId != Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value))
         {
-            @Html.ActionLink("JoinGameRoom","JoinTheRoom","Room",new{@Roomid = Model.RoomId,@MicrosoftAccountId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value})
+            @Html.ActionLink("JoinGameRoom","JoinTheRoom","Room",new{@Roomid = Model.RoomId,@MicrosoftAccountId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value,@GamingSystem = Model.GamingSystemDTO.GamingSystemDTOId})
 
         }
 

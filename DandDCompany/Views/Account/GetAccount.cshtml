@@ -51,6 +51,7 @@
                 <div class="p-2 border bg-light ">
                     <h4 class="title"> </h4>
                     @Html.ActionLink(@item.CharacterName,"GetChararcter","Character",new{@Id = item.CharacterId})
+                  
                 </div>
 
 
@@ -61,7 +62,7 @@
                 <div class="p-2 border bg-light ">
                     <li class="nav-item">
 
-                        @Html.ActionLink("CreateGameChar","AddCharacter","Character",new{@AccountId = Model.AccountDTOId})
+                        @Html.ActionLink("Create Game Char","AddCharacter","Character",new{@AccountId = Model.AccountDTOId})
                     </li>
                     <li class="nav-item">
 

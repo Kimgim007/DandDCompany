@@ -1,4 +1,6 @@
 ﻿using DandDCompany.Models;
+using DTO.Entity;
+
 namespace DandDCompany.Models
 {
     public class RoomViewModel
@@ -11,6 +13,8 @@ namespace DandDCompany.Models
         public Guid AccountId { get; set; }
         
         public string DiscriptionGameRoom { get; set; }
+
+        public List<GamingSystemDTO> gamingSystemDTOs { get; set; } = new List<GamingSystemDTO>();
       
     }
 }

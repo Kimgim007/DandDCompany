@@ -37,7 +37,7 @@
                     @Html.TextBoxFor(x => x.GameClassName)
                     @Html.ValidationMessageFor(x=>x.GameClassName)
                 </p>
-                   <p>
+                <p>
                     <div>
                         <h5 style="font-weight: 400;">
                             Enter Description Game Class:
@@ -49,8 +49,21 @@
                     @Html.ValidationMessageFor(x=>x.DescriptionGameClass)
                 </p>
 
-                
+
             </div>
+
+            <div style="text-align:center;margin-bottom:20px;">
+                <h5>Select GamingSystem</h5>
+
+                <select name="GamingSystemId" id="AddGameClass">
+                    @foreach (var item in Model.GamingSystemsDTO)
+                    {
+                        <option value="@item.GamingSystemDTOId">@item.GamingSystemDTOName</option>
+                    }
+                </select>
+
+            </div>
+
             @Html.HiddenFor(x=>x.GameClassId)
             @if (@Model.GameClassId == Guid.Empty)
             {
@@ -65,5 +78,7 @@
                 </div>
             }
         </form>
-    </div>
+
+
+   
 </body>

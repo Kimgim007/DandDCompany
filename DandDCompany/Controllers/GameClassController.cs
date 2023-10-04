@@ -12,9 +12,11 @@ namespace DandDCompany.Controllers
     public class GameClassController : Controller
     {
         private IGameClassDTOService _GameClassDTOService;
-        public GameClassController(IGameClassDTOService classDTOService)
+        private IGamingSystemDTOService _gamingSystemDTOService;
+        public GameClassController(IGameClassDTOService classDTOService, IGamingSystemDTOService gamingSystemDTOService)
         {
             this._GameClassDTOService = classDTOService;
+            this._gamingSystemDTOService = gamingSystemDTOService;
         }
         public IActionResult Index()
         {
@@ -27,11 +29,12 @@ namespace DandDCompany.Controllers
         {
             GameClassViewModel classViewModel;
 
+
             if(id == Guid.Empty)
             {
                 classViewModel = new GameClassViewModel()
                 {
-                    
+                    GamingSystemsDTO = await _gamingSystemDTOService.GetAll()
                 };
             }
             else
@@ -49,9 +52,10 @@ namespace DandDCompany.Controllers
             return View(classViewModel);
         }
         [HttpPost]
-        public async Task<IActionResult> AddGameClass(GameClassViewModel classViewModel)
+        public async Task<IActionResult> AddGameClass(GameClassViewModel classViewModel,Guid GamingSystemId)
         {
-            GameClassDTO classDTO = new GameClassDTO(classViewModel.GameClassId, classViewModel.GameClassName, classViewModel.DescriptionGameClass);
+            GamingSystemDTO gamingSystemDTO = new GamingSystemDTO() { GamingSystemDTOId = GamingSystemId};
+            GameClassDTO classDTO = new GameClassDTO(classViewModel.GameClassId, classViewModel.GameClassName, classViewModel.DescriptionGameClass, gamingSystemDTO);
             if (classViewModel.GameClassId == Guid.Empty)
             {
                 await _GameClassDTOService.Add(classDTO);

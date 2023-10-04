@@ -26,7 +26,7 @@ namespace DTO.Service.Mapnig
         public static CharacterDTO map(Character character)
         {
             GameClassDTO gameClassDTO = new GameClassDTO() { GameClassDTOId = character.GameClassId };
-            AccountDTO gameAccountDTO = new AccountDTO() { AccountDTOId = character.AccountId,MicrosoftAccountId = character.Account.MicrosoftAccountId };
+            AccountDTO gameAccountDTO = new AccountDTO() { AccountDTOId = character.AccountId, MicrosoftAccountId = character.Account.MicrosoftAccountId };
             return new CharacterDTO()
             {
                 CharacterId = character.CharacterId,
@@ -46,43 +46,47 @@ namespace DTO.Service.Mapnig
                 GameClassName = gameClassDTO.GameClassName,
                 DescriptionGameClass = gameClassDTO.DescriptionGameClass,
 
-
-
+                GamingSystemId = gameClassDTO.GamingSystemDTO.GamingSystemDTOId
             };
         }
         public static GameClassDTO map(GameClass gameClass)
         {
+            GamingSystemDTO gamingSystemDTO = new GamingSystemDTO()
+            {
+                GamingSystemDTOId = gameClass.GamingSystemId,
+                GamingSystemDTOName = gameClass.GamingSystem.GamingSystemName
+            };
             return new GameClassDTO()
             {
                 GameClassDTOId = gameClass.GameClassId,
                 GameClassName = gameClass.GameClassName,
                 DescriptionGameClass = gameClass.DescriptionGameClass,
 
-
+                GamingSystemDTO= gamingSystemDTO
             };
         }
         public static Room map(RoomDTO roomDTO)
         {
-            
+
             return new Room()
             {
                 RoomId = roomDTO.RoomId,
                 RoomName = roomDTO.RoomName,
-                AccountId = roomDTO.AdminAccountDTO.AccountDTOId
-
+                AccountId = roomDTO.AdminAccountDTO.AccountDTOId,
+                GamingSystemId = roomDTO.GamingSystemDTO.GamingSystemDTOId
 
             };
         }
         public static RoomDTO map(Room room)
         {
             List<CharacterRoomDTO> CharacterRoomDTO = new List<CharacterRoomDTO>();
-            CharacterRoomDTO =  room.CharacterRooms.Select(q => map(q)).ToList();
+            CharacterRoomDTO = room.CharacterRooms.Select(q => map(q)).ToList();
 
             AccountDTO accountDTO = new AccountDTO()
             {
                 AccountDTOId = room.AccountId,
-            
-              
+
+
             };
 
             return new RoomDTO()
@@ -92,7 +96,8 @@ namespace DTO.Service.Mapnig
 
                 AdminAccountDTO = accountDTO,
 
-                AccountRoomsDTO = CharacterRoomDTO
+                AccountRoomsDTO = CharacterRoomDTO,
+                GamingSystemDTO = map(room.GamingSystem)
 
             };
         }
@@ -103,14 +108,14 @@ namespace DTO.Service.Mapnig
             {
                 AccountId = AccountDTO.AccountDTOId,
                 MicrosoftAccountId = AccountDTO.MicrosoftAccountId,
-                MicrosoftAccountName= AccountDTO.MicrosoftAccountName,
+                MicrosoftAccountName = AccountDTO.MicrosoftAccountName,
             };
         }
 
         public static AccountDTO map(Account Account)
         {
             List<CharacterDTO> list = new List<CharacterDTO>();
-          
+
             list = Account.Characters.Select(q => map(q)).ToList();
 
             return new AccountDTO()
@@ -118,7 +123,7 @@ namespace DTO.Service.Mapnig
                 AccountDTOId = Account.AccountId,
                 MicrosoftAccountId = Account.MicrosoftAccountId,
 
-                MicrosoftAccountName= Account.MicrosoftAccountName,
+                MicrosoftAccountName = Account.MicrosoftAccountName,
 
                 CharacterDTOs = list
 
@@ -135,25 +140,43 @@ namespace DTO.Service.Mapnig
 
                 CharacterId = characterRoomDTO.CharacterDTO.CharacterId,
                 RoomId = characterRoomDTO.RoomDTO.RoomId,
-             
-                Pass = characterRoomDTO.PassDTO           
+
+                Pass = characterRoomDTO.PassDTO
             };
         }
 
         public static CharacterRoomDTO map(CharacterRoom characterRoom)
         {
-           
+
             RoomDTO gameRoomDTO = new RoomDTO() { RoomId = (Guid)characterRoom.RoomId };
             CharacterDTO gameCharacterDTO = new CharacterDTO() { CharacterId = (Guid)characterRoom.CharacterId };
 
             return new CharacterRoomDTO()
-            {               
+            {
                 CharacterRoomDTOId = characterRoom.CharacterRoomId,
 
                 RoomDTO = gameRoomDTO,
                 CharacterDTO = gameCharacterDTO,
 
-                PassDTO = characterRoom.Pass   
+                PassDTO = characterRoom.Pass
+            };
+        }
+
+        public static GamingSystem map(GamingSystemDTO gamingSystemDTO)
+        {
+            return new GamingSystem()
+            {
+                GamingSystemId = gamingSystemDTO.GamingSystemDTOId,
+                GamingSystemName = gamingSystemDTO.GamingSystemDTOName,
+            };
+        }
+        public static GamingSystemDTO map(GamingSystem gamingSystem)
+        {
+            return new GamingSystemDTO()
+            {
+                GamingSystemDTOId = gamingSystem.GamingSystemId,
+                GamingSystemDTOName = gamingSystem.GamingSystemName,
+                GameClassDTOes = gamingSystem.GameClasses.Select(q=>map(q)).ToList(),
             };
         }
 

@@ -28,14 +28,20 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Room" asp-action="GetAllRoom">GetAllRooms</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="GameClass" asp-action="GetGameClasss">GetGameClass</a>
-                       
+                            <a class="nav-link text-dark" asp-area="" asp-controller="GameClass" asp-action="GetGameClasss">GetGameClass</a>                  
+                       </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="GamingSystem" asp-action="GetAllGamingSystem">GetGamingSystem</a>
                         </li>
                         @if (User.IsInRole("Admin"))
                         {
                             
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="GameClass" asp-action="AddGameClass">AddGameClass</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="GamingSystem" asp-action="AddGamingSystem">AddGamingSystem</a>
                             </li>
 
                           

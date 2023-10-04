@@ -23,16 +23,35 @@ namespace DataBase.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "GamingSystems",
+                columns: table => new
+                {
+                    GamingSystemId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    GamingSystemName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_GamingSystems", x => x.GamingSystemId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "GameClasss",
                 columns: table => new
                 {
                     GameClassId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     GameClassName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DescriptionGameClass = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    DescriptionGameClass = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    GamingSystemId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_GameClasss", x => x.GameClassId);
+                    table.ForeignKey(
+                        name: "FK_GameClasss_GamingSystems_GamingSystemId",
+                        column: x => x.GamingSystemId,
+                        principalTable: "GamingSystems",
+                        principalColumn: "GamingSystemId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -41,7 +60,8 @@ namespace DataBase.Migrations
                 {
                     RoomId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     RoomName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    AccountId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    AccountId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    GamingSystemId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -51,6 +71,12 @@ namespace DataBase.Migrations
                         column: x => x.AccountId,
                         principalTable: "Accounts",
                         principalColumn: "AccountId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Rooms_GamingSystems_GamingSystemId",
+                        column: x => x.GamingSystemId,
+                        principalTable: "GamingSystems",
+                        principalColumn: "GamingSystemId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -126,9 +152,19 @@ namespace DataBase.Migrations
                 column: "GameClassId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_GameClasss_GamingSystemId",
+                table: "GameClasss",
+                column: "GamingSystemId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Rooms_AccountId",
                 table: "Rooms",
                 column: "AccountId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Rooms_GamingSystemId",
+                table: "Rooms",
+                column: "GamingSystemId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -147,6 +183,9 @@ namespace DataBase.Migrations
 
             migrationBuilder.DropTable(
                 name: "Accounts");
+
+            migrationBuilder.DropTable(
+                name: "GamingSystems");
         }
     }
 }

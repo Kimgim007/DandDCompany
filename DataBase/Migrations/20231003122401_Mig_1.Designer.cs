@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataBase.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230920165006_Mig_1")]
+    [Migration("20231003122401_Mig_1")]
     partial class Mig_1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -106,9 +106,29 @@ namespace DataBase.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("GamingSystemId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("GameClassId");
 
+                    b.HasIndex("GamingSystemId");
+
                     b.ToTable("GameClasss");
+                });
+
+            modelBuilder.Entity("DataBase.DbEntity.GamingSystem", b =>
+                {
+                    b.Property<Guid>("GamingSystemId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("GamingSystemName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("GamingSystemId");
+
+                    b.ToTable("GamingSystems");
                 });
 
             modelBuilder.Entity("DataBase.DbEntity.Room", b =>
@@ -120,6 +140,9 @@ namespace DataBase.Migrations
                     b.Property<Guid>("AccountId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("GamingSystemId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("RoomName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -127,6 +150,8 @@ namespace DataBase.Migrations
                     b.HasKey("RoomId");
 
                     b.HasIndex("AccountId");
+
+                    b.HasIndex("GamingSystemId");
 
                     b.ToTable("Rooms");
                 });
@@ -165,6 +190,17 @@ namespace DataBase.Migrations
                     b.Navigation("Room");
                 });
 
+            modelBuilder.Entity("DataBase.DbEntity.GameClass", b =>
+                {
+                    b.HasOne("DataBase.DbEntity.GamingSystem", "GamingSystem")
+                        .WithMany("GameClasses")
+                        .HasForeignKey("GamingSystemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("GamingSystem");
+                });
+
             modelBuilder.Entity("DataBase.DbEntity.Room", b =>
                 {
                     b.HasOne("DataBase.DbEntity.Account", "Account")
@@ -173,7 +209,15 @@ namespace DataBase.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("DataBase.DbEntity.GamingSystem", "GamingSystem")
+                        .WithMany("Rooms")
+                        .HasForeignKey("GamingSystemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Account");
+
+                    b.Navigation("GamingSystem");
                 });
 
             modelBuilder.Entity("DataBase.DbEntity.Account", b =>
@@ -191,6 +235,13 @@ namespace DataBase.Migrations
             modelBuilder.Entity("DataBase.DbEntity.GameClass", b =>
                 {
                     b.Navigation("Characters");
+                });
+
+            modelBuilder.Entity("DataBase.DbEntity.GamingSystem", b =>
+                {
+                    b.Navigation("GameClasses");
+
+                    b.Navigation("Rooms");
                 });
 
             modelBuilder.Entity("DataBase.DbEntity.Room", b =>

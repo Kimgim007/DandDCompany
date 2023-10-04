@@ -40,6 +40,19 @@
                 </p>
 
             </div>
+
+            <div style="text-align:center;margin-bottom:20px;">
+                <h5>Select GamingSystem</h5>
+
+                <select name="GamingSystemId" id="AddRoom">
+                    @foreach (var item in Model.gamingSystemDTOs)
+                    {
+                        <option value="@item.GamingSystemDTOId">@item.GamingSystemDTOName</option>
+                    }
+                </select>
+
+            </div>
+
             @Html.HiddenFor(x=>x.GameRoomId)
             @Html.HiddenFor(q=>q.AccountId)
             @if (@Model.GameRoomId == Guid.Empty)

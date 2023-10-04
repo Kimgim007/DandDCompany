@@ -30,13 +30,13 @@ namespace DataBase.Repository
 
         public async Task<Account> GetFromMicrosoftAccountId(Guid MicrosoftAccountId)
         {
-            var account = await _dataContext.Accounts.Include(q=>q.Characters).FirstOrDefaultAsync(q => q.MicrosoftAccountId == MicrosoftAccountId);
+            var account = await _dataContext.Accounts.Include(q=>(q.Characters)).FirstOrDefaultAsync(q => q.MicrosoftAccountId == MicrosoftAccountId);
             return account;
         }
 
         public async Task<Account> Get(Guid id)
         {
-           var account = await _dataContext.Accounts.FirstOrDefaultAsync(q=>q.AccountId == id);
+           var account = await _dataContext.Accounts.Include(q=>(q.Characters)).FirstOrDefaultAsync(q=>q.AccountId == id);
             return account;
         }
 

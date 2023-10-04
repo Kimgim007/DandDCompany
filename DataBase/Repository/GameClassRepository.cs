@@ -27,13 +27,13 @@ namespace DataBase.Repository
 
         public async Task<GameClass> Get(Guid id)
         {
-            var gameClass = await _dataContext.GameClasss.FirstOrDefaultAsync(q => q.GameClassId == id);
+            var gameClass = await _dataContext.GameClasss.Include(q=>q.GamingSystem).FirstOrDefaultAsync(q => q.GameClassId == id);
             return gameClass;
         }
 
         public async Task<List<GameClass>> GetAll()
         {
-            var gameClasss = await _dataContext.GameClasss.ToListAsync();
+            var gameClasss = await _dataContext.GameClasss.Include(q=>q.GamingSystem).ToListAsync();
             return gameClasss;
         }
 

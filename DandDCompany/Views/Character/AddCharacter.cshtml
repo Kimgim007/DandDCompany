@@ -6,6 +6,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+
+   
+
     <style>
     </style>
 </head>
@@ -48,27 +51,28 @@
                     @Html.ValidationMessageFor(x=>x.DescriptionChar)
                 </p>
 
+                @if (@Model.CharacterId == Guid.Empty)
+                {
+                    <select name="GameClassId" id="AddCharacter">
+                        @foreach (var item in Model.gamingSystemDTOs)
+                        {
+                            <optgroup label="@item.GamingSystemDTOName">
+                                @foreach (var item2 in item.GameClassDTOes)
+                                {
+                                    <option value="@item2.GameClassDTOId">@item2.GameClassName</option>
+                                }
+                            </optgroup>
+                        }
+                    </select>
+                }
+                else
+                {
+                    @Html.HiddenFor(q=>q.GameClassId)
+                }
 
             </div>
-            @if (@Model.CharacterId == Guid.Empty)
-            {
-                      <div style="text-align:center;margin-bottom:20px;">
-                <h5>Select Class</h5>
-               
 
-                <select name="GameClassId" id="AddCharacter">
-                    @foreach (var item in Model.gameClassDTOs)
-                    {
-                        <option value="@item.GameClassDTOId">@item.GameClassName</option>
-                    }
-                </select>
-            </div>
-            }
-            else
-            {
-                @Html.HiddenFor(q=>q.GameClassId)
-            }
-      
+
 
             @Html.HiddenFor(x=>x.CharacterId)
             @Html.HiddenFor(q=>q.AccountId)

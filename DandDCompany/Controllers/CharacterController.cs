@@ -12,10 +12,12 @@ namespace DandDCompany.Controllers
     {
         private ICharacterDTOService _characterDTOService;
         private IGameClassDTOService _gameClassDTOService;
-        public CharacterController(ICharacterDTOService characterDTOService, IGameClassDTOService gameClassDTOService)
+        private IGamingSystemDTOService _gamingSystemDTOService;
+        public CharacterController(ICharacterDTOService characterDTOService, IGameClassDTOService gameClassDTOService, IGamingSystemDTOService gamingSystemDTOService)
         {
             this._characterDTOService = characterDTOService;
             this._gameClassDTOService = gameClassDTOService;
+            this._gamingSystemDTOService = gamingSystemDTOService;
         }
 
         public IActionResult Index()
@@ -28,13 +30,14 @@ namespace DandDCompany.Controllers
         {
 
             CharacterViewModel gameCharacterViewModel;
+           
             if (CharId == Guid.Empty)
-            {
-                var gameCalsses = await _gameClassDTOService.GetAll();
+            {     
+                var gamingSystem = await _gamingSystemDTOService.GetAll();
                 gameCharacterViewModel = new CharacterViewModel()
-                {
-                    gameClassDTOs = gameCalsses,
+                {                  
                     AccountId = AccountId,
+                    gamingSystemDTOs = gamingSystem
                 };
             }
             else

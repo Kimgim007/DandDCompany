@@ -1,4 +1,7 @@
-﻿namespace DandDCompany.Models
+﻿using DandDCompany.Controllers;
+using DTO.Entity;
+
+namespace DandDCompany.Models
 {
     public class GameClassViewModel
     {
@@ -7,7 +10,7 @@
         public string GameClassName { get; set; }
         public string? DescriptionGameClass { get; set; }
 
-   
+        public List<GamingSystemDTO> GamingSystemsDTO { get; set; } = new List<GamingSystemDTO>();
 
     }
 }

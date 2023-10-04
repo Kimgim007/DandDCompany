@@ -26,6 +26,7 @@ namespace DTO.RegisterDI
             service.AddScoped<CharacterRepository>();
             service.AddScoped<AccountRepository>();
             service.AddScoped<CharacterRoomRepository>();
+            service.AddScoped<GamingSystemRepository>();
           
         }
     }

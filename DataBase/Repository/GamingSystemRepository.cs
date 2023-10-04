@@ -6,36 +6,33 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
 using System.Threading.Tasks;
 
 namespace DataBase.Repository
 {
-    public class RoomRepository : IRepository<Room>
+    public class GamingSystemRepository: IRepository<GamingSystem>
     {
         private DataContext _dataContext;
-        public RoomRepository(DataContext dataContext)
+        public GamingSystemRepository(DataContext dataContext)
         {
             this._dataContext = dataContext;
         }
 
-        public async Task Add(Room room)
+        public async Task Add(GamingSystem gamingSystem)
         {
-            _dataContext.Rooms.Add(room);
+             _dataContext.GamingSystems.Add(gamingSystem);
             await _dataContext.SaveChangesAsync();
-
         }
 
-        public async Task<Room> Get(Guid id)
+        public Task<GamingSystem> Get(Guid id)
         {
-            var room = await _dataContext.Rooms.Include(q=>q.CharacterRooms).Include(q=>q.Account).Include(q=>q.GamingSystem).FirstOrDefaultAsync(q => q.RoomId == id);
-            return room;
+            throw new NotImplementedException();
         }
 
-        public async Task<List<Room>> GetAll()
+        public async Task<List<GamingSystem>> GetAll()
         {
-            var rooms = await _dataContext.Rooms.Include(q=>q.GamingSystem).ToListAsync();
-            return rooms;
+           var gamingSystems = await _dataContext.GamingSystems.Include(q=>q.GameClasses).ToListAsync();
+            return gamingSystems;
         }
 
         public Task Remove(Guid id)
@@ -43,7 +40,7 @@ namespace DataBase.Repository
             throw new NotImplementedException();
         }
 
-        public Task Update(Room obj)
+        public Task Update(GamingSystem obj)
         {
             throw new NotImplementedException();
         }

@@ -14,10 +14,10 @@ namespace DandDCompany.Models
         public string CharacterName { get; set; }
 
         public string DescriptionChar { get; set; }
-
-        public List<GameClassDTO> gameClassDTOs { get; set; }
-
+    
         public Guid GameClassId { get; set; }
         public Guid AccountId { get; set; }
+
+        public List<GamingSystemDTO> gamingSystemDTOs { get; set; } = new List<GamingSystemDTO>();
     }
 }

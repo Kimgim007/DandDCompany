@@ -11,19 +11,25 @@ namespace DandDCompany.Controllers
     public class RoomController : Controller
     {
         private IRoomDTOService _roomDTOService;
-        public ICharacterRoomDTOService _characterRoomDTOService;
-        public IAccountDTOService _accountDTOService;
-        public ICharacterDTOService _characterDTOService;
+        private ICharacterRoomDTOService _characterRoomDTOService;
+        private IAccountDTOService _accountDTOService;
+        private ICharacterDTOService _characterDTOService;
+        private IGamingSystemDTOService _gamingSystemDTOService;
+        private IGameClassDTOService _gameClassDTOService;
 
         public RoomController(IRoomDTOService roomDTOService,
             ICharacterRoomDTOService characterRoomDTOService,
             IAccountDTOService accountDTOService,
-            ICharacterDTOService characterDTOService)
+            ICharacterDTOService characterDTOService,
+            IGamingSystemDTOService gamingSystemDTOService,
+            IGameClassDTOService gameClassDTOService)
         {
             this._roomDTOService = roomDTOService;
             this._characterRoomDTOService = characterRoomDTOService;
             this._accountDTOService = accountDTOService;
             this._characterDTOService = characterDTOService;
+            this._gamingSystemDTOService = gamingSystemDTOService;
+            this._gameClassDTOService= gameClassDTOService;
         }
         public IActionResult Index()
         {
@@ -34,18 +40,21 @@ namespace DandDCompany.Controllers
         [HttpGet]
         public async Task<IActionResult> AddRoom(Guid AccountId)
         {
+            var gamingSystem = await _gamingSystemDTOService.GetAll(); 
             RoomViewModel groupViewModel;
             groupViewModel = new RoomViewModel()
             {
                 AccountId = AccountId,
+                gamingSystemDTOs = gamingSystem
             };
             return View(groupViewModel);
         }
         [HttpPost]
-        public async Task<IActionResult> AddRoom(RoomViewModel groupViewModel)
+        public async Task<IActionResult> AddRoom(RoomViewModel groupViewModel,Guid GamingSystemId)
         {
             AccountDTO accountDTO = new AccountDTO() { AccountDTOId =groupViewModel.AccountId};
-            RoomDTO groupDTO = new RoomDTO(groupViewModel.GameRoomId, accountDTO, groupViewModel.GameRoomName);
+            GamingSystemDTO gamingSystemDTO = new GamingSystemDTO() {GamingSystemDTOId = GamingSystemId };
+            RoomDTO groupDTO = new RoomDTO(groupViewModel.GameRoomId, accountDTO, groupViewModel.GameRoomName, gamingSystemDTO);
             await _roomDTOService.Add(groupDTO);
             return RedirectToAction("GetAllRoom", "Room");
         }
@@ -98,19 +107,31 @@ namespace DandDCompany.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> JoinTheRoom(Guid Roomid,string MicrosoftAccountId)
+        public async Task<IActionResult> JoinTheRoom(Guid Roomid,string MicrosoftAccountId,Guid GamingSystem)
         {
-            var account = await _accountDTOService.GetAccountForMicrosoftAccountId(Guid.Parse(MicrosoftAccountId));
+            var account = await _accountDTOService.GetAccountForMicrosoftAccountId(Guid.Parse(MicrosoftAccountId)); 
+            
+            List<CharacterDTO> characterDTOs = new List<CharacterDTO>();
+            GameClassDTO gameClass;
+
+            foreach(var item in account.CharacterDTOs)
+            {
+                gameClass = await _gameClassDTOService.Get(item.GameClassDTO.GameClassDTOId);
+                if(gameClass.GamingSystemDTO.GamingSystemDTOId == GamingSystem)
+                {
+                    characterDTOs.Add(item);
+                }
+           
+            }
 
             RoomDTO RoomDTO = new RoomDTO() { RoomId = Roomid };
-
           
             CharacterRoomViewModel characterRoomViewModel;
 
             characterRoomViewModel = new CharacterRoomViewModel()
             {
                 RoomDTO= RoomDTO,  
-                Characters = account.CharacterDTOs
+                Characters = characterDTOs
             };
 
 
