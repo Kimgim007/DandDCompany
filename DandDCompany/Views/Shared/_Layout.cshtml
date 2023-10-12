@@ -23,19 +23,24 @@
 
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>                                        
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Room" asp-action="GetAllRoom">GetAllRooms</a>
                         </li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Room" asp-action="GetAllRoom">GetAllRooms</a>
+                            </li>
+
+                        }
+
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="GameClass" asp-action="GetGameClasss">GetGameClass</a>                  
-                       </li>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="GameClass" asp-action="GetGameClasss">GetGameClass</a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="GamingSystem" asp-action="GetAllGamingSystem">GetGamingSystem</a>
                         </li>
                         @if (User.IsInRole("Admin"))
                         {
-                            
+
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="GameClass" asp-action="AddGameClass">AddGameClass</a>
                             </li>
@@ -44,18 +49,18 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="GamingSystem" asp-action="AddGamingSystem">AddGamingSystem</a>
                             </li>
 
-                          
+
 
                         }
-                       
-                        @if(User.Identity.IsAuthenticated)
+
+                        @if (User.Identity.IsAuthenticated)
                         {
 
                             @Html.ActionLink("Account","GetAccount","Account",new{@MicrosoftAccountId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value},new{style ="text-decoration:none;font-weight: 400; color: black;"})
-                          
-                  
+
+
                         }
-                     
+
 
                     </ul>
                     <partial name="_LoginPartial" />
