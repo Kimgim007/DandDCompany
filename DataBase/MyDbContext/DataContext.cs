@@ -21,10 +21,10 @@ namespace DataBase.MyDbContext
         public DbSet<CharacterRoom> CharacterRooms { get; set; }
 
         public DbSet<GamingSystem> GamingSystems { get; set; }
-      
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var connectionsString = "Server=(localdb)\\MSSQLLocalDB;Database=DandDCompany;Trusted_Connection=True;";
+            var connectionsString = "Server=tcp:danddcompany.database.windows.net,1433;Initial Catalog=GamingDataBase;Persist Security Info=False;User ID=DandDAdmin;Password=bMdHmqh6BwgwJtq;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=True;Connection Timeout=30;";
 
             if (optionsBuilder.IsConfigured == false)
             {
@@ -32,6 +32,8 @@ namespace DataBase.MyDbContext
             }
             base.OnConfiguring(optionsBuilder);
         }
+
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
